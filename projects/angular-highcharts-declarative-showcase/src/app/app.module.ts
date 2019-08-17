@@ -37,7 +37,6 @@ import * as funnel from 'highcharts/modules/funnel.src';
 import * as funnel3d from 'highcharts/modules/funnel3d';
 import * as _3d from 'highcharts/highcharts-3d.src';
 import { CodeComponent } from './code/code.component';
-import { PrismModule } from '@ngx-prism/core';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -59,7 +58,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatTabsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    PrismModule,
     HttpClientModule
   ],
   providers: [
