@@ -1,0 +1,70 @@
+<!--- the main thing: Chart configuration -->
+<hc-chart *ngIf="visible" [zoomType]="zoomType" type="column">
+  <hc-title [text]="title | uppercase"></hc-title>
+  <hc-subtitle [text]="title | lowercase" verticalAlign="bottom"></hc-subtitle>
+
+  <hc-x-axis #mainAxis [type]="xAxisType" [title]="{ text: 'My x axis' }"></hc-x-axis>
+  <hc-x-axis #secX reversed="true" type="" [title]="{ text: 'Sec axis' }" [min]="1" [max]="max"></hc-x-axis>
+  <hc-y-axis [title]="{ text: 'My Y axis' }"></hc-y-axis>
+  <hc-y-axis #secY opposite="true" [title]="{ text: 'Sec Y axis' }"></hc-y-axis>
+  <hc-x-axis *ngFor="let dXAxis of dXAxes" [title]="{ text: 'Dyn x axis' + dXAxis }"></hc-x-axis>
+
+  <hc-series [hcXAxis]="mainAxis" [name]="series1name" [type]="seriesType" [data]="data"></hc-series>
+  <hc-series [hcXAxis]="secX" [hcYAxis]="secY" [name]="'Series 2'" [data]="secondData"></hc-series>
+  <hc-series name="Async" [data]="asyncData | async"></hc-series>
+  <hc-series *ngFor="let dSerie of dSeries" [name]="'Dyn' + dSerie" [index]="dSerie" [data]="[dSerie]"></hc-series>
+</hc-chart>
+
+<!---Reactivity demo inputs -->
+<button mat-raised-button (click)="asyncTest()">Async test</button>
+<div fxLayout="row wrap" fxLayoutGap="16px">
+  <mat-checkbox [(ngModel)]="visible">Toggle chart on/off</mat-checkbox>
+  <mat-form-field>
+    <input type="number" placeholder="Random points # (series 1)" matInput [(ngModel)]="dataPointsCount" />
+  </mat-form-field>
+  <mat-form-field><input matInput placeholder="X axis max value (series 2)" [(ngModel)]="max"/></mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="X axis type" [(ngModel)]="xAxisType">
+      <mat-option *ngFor="let type of ['', 'category', 'datetime']" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field> <input matInput placeholder="series 1 name" [(ngModel)]="series1name"/></mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="series 1 Type" [(ngModel)]="seriesType">
+      <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field><input matInput placeholder="title (pipe uppercase)" [(ngModel)]="title"/></mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="zoomType" [(ngModel)]="zoomType">
+      <mat-option *ngFor="let type of ['None', 'x', 'y', 'xy']" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div fxLayout="row" fxLayoutGap="16px">
+  <mat-form-field
+    ><input matInput placeholder="Value to add" type="number" [(ngModel)]="valueToAdd" width="100%" />
+  </mat-form-field>
+  <mat-form-field fxFlex="20"
+    ><input
+      matInput
+      placeholder="value index to add (try array length [{{ data.length }}], or 1!)"
+      type="number"
+      [(ngModel)]="positionToAdd"
+      width="100%"
+  /></mat-form-field>
+
+  <button mat-raised-button (click)="onAdd()">Add point</button>
+</div>
+
+<div fxLayout="row">
+  <button mat-raised-button (click)="addSeries()">Add series</button>
+  <button mat-raised-button (click)="removeSeries()">Remove series</button>
+</div>
+<div fxLayout="row">
+  <button mat-raised-button (click)="addXAxis()">Add xAxis</button>
+  <button mat-raised-button (click)="removeXAxis()">Remove xAxis</button>
+</div>

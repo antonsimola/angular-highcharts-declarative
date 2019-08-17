@@ -1,0 +1,8 @@
+<mat-tab-group [selectedIndex]="0">
+  <mat-tab  *ngFor="let file of files" [label]="file">
+<!--    <ngx-prism [language]="file.split('.')[1]">{{fileContents[file]}}</ngx-prism>-->
+    <ngx-prism  *ngIf="fileContents[file]" [code]="fileContents[file]" [language]="'html'"></ngx-prism>
+  </mat-tab>
+</mat-tab-group>
+
+

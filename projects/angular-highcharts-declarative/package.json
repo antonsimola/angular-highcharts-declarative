@@ -1,0 +1,15 @@
+{
+  "name": "angular-highcharts-declarative",
+  "license": "MIT",
+  "author": "Anton Simola",
+  "description": "Angular >8.0 Highcharts wrapper with declarative configuration + reactive inputs",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "highcharts": "^7.0.0",
+    "rxjs": "^6.4.0"
+  },
+  "devDependencies": {
+  }
+}

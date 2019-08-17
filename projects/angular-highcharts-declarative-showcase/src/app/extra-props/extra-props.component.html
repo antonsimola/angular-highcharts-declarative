@@ -1,0 +1,14 @@
+<div fxLayout="row">
+  <hc-chart width="500" type="dependencywheel">
+    <hc-series [data]="depData" [extra]="extraWheel"></hc-series>
+  </hc-chart>
+  <hc-chart width="500" type="line">
+    <hc-series [data]="[1,2,3,4,5]" [extra]="{dashStyle:'ShortDash'}"></hc-series>
+  </hc-chart>
+</div>
+
+<mat-form-field>
+  <input placeholder="Curve factor" matInput type="number" [(ngModel)]="extraWheel.curveFactor"
+         (ngModelChange)="inputChange()">
+</mat-form-field>
+

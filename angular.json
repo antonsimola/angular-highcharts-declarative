@@ -1,0 +1,155 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "angular-highcharts-declarative": {
+      "projectType": "library",
+      "root": "projects/angular-highcharts-declarative",
+      "sourceRoot": "projects/angular-highcharts-declarative/src",
+      "prefix": "hc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular-highcharts-declarative/tsconfig.lib.json",
+            "project": "projects/angular-highcharts-declarative/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-highcharts-declarative/src/test.ts",
+            "tsConfig": "projects/angular-highcharts-declarative/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-highcharts-declarative/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-highcharts-declarative/tsconfig.lib.json",
+              "projects/angular-highcharts-declarative/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "angular-highcharts-declarative-showcase": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/angular-highcharts-declarative-showcase",
+      "sourceRoot": "projects/angular-highcharts-declarative-showcase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/angular-highcharts-declarative-showcase",
+            "index": "projects/angular-highcharts-declarative-showcase/src/index.html",
+            "main": "projects/angular-highcharts-declarative-showcase/src/main.ts",
+            "polyfills": "projects/angular-highcharts-declarative-showcase/src/polyfills.ts",
+            "tsConfig": "projects/angular-highcharts-declarative-showcase/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/angular-highcharts-declarative-showcase/src/favicon.ico",
+              "projects/angular-highcharts-declarative-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/angular-highcharts-declarative-showcase/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/angular-highcharts-declarative-showcase/src/environments/environment.ts",
+                  "with": "projects/angular-highcharts-declarative-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "angular-highcharts-declarative-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-highcharts-declarative-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-highcharts-declarative-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-highcharts-declarative-showcase/src/test.ts",
+            "polyfills": "projects/angular-highcharts-declarative-showcase/src/polyfills.ts",
+            "tsConfig": "projects/angular-highcharts-declarative-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-highcharts-declarative-showcase/karma.conf.js",
+            "assets": [
+              "projects/angular-highcharts-declarative-showcase/src/favicon.ico",
+              "projects/angular-highcharts-declarative-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/angular-highcharts-declarative-showcase/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-highcharts-declarative-showcase/tsconfig.app.json",
+              "projects/angular-highcharts-declarative-showcase/tsconfig.spec.json",
+              "projects/angular-highcharts-declarative-showcase/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/angular-highcharts-declarative-showcase/e2e/protractor.conf.js",
+            "devServerTarget": "angular-highcharts-declarative-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-highcharts-declarative-showcase:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "angular-highcharts-declarative"
+}

@@ -1,0 +1,8 @@
+<div #chartDiv></div>
+<ng-container *ngIf="chartReady$ | async">
+    <ng-content select="hc-title"></ng-content>
+    <ng-content select="hc-subtitle"></ng-content>
+    <ng-content select="hc-x-axis"></ng-content>
+    <ng-content select="hc-y-axis"></ng-content>
+    <ng-content select="hc-series"></ng-content>
+</ng-container>
