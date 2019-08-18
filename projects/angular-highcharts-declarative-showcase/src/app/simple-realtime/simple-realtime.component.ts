@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { interval } from 'rxjs';
-import { map, scan } from 'rxjs/operators';
+import { map, scan, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-simple-realtime',
   template: `
     <hc-chart [extra]="{ boost: { enabled: false }, exporting: { enabled: false } }">
-      <hc-title>Updates: {{ pointCount$ | async }}</hc-title>
+      <hc-title [text]="'' + (pointCount$ | async)"></hc-title>
       <!-- Provide initial [data] along with shift, otherwise  would display one point at a time. Essentially it is the "window size"-->
       <hc-series
         type="spline"
@@ -18,6 +18,9 @@ import { map, scan } from 'rxjs/operators';
   `
 })
 export class SimpleRealtimeComponent {
-  data$ = interval(1000).pipe(map(i => Math.random() * 40));
-  pointCount$ = this.data$.pipe(scan((acc, cur) => acc + 1, 0));
+  data$ = interval(1000).pipe(
+    map(i => Math.random() * 40),
+    share()
+  );
+  pointCount$ = this.data$.pipe(scan((acc, cur) => acc + 1, 7));
 }
