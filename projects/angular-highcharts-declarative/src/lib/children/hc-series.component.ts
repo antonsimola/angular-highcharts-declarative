@@ -33,7 +33,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   type: string = null;
 
   @Input()
-  data = null;
+  data?: any = null;
 
   @Input()
   dataStream: Observable<any> = null;
@@ -70,6 +70,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
 
     this.chartService.addSeries(this.getState());
     this.initializedSub.next(true);
+    this.initializedSub.complete();
   }
 
   private getState() {
@@ -81,6 +82,11 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
     delete state.dataStreamShift;
     delete state.dataSub;
     state = { ...state, ...state.extra };
+    for (const [key, value] of Object.entries(state)) {
+      if (value === null) {
+        delete state[key];
+      }
+    }
     return state;
   }
 

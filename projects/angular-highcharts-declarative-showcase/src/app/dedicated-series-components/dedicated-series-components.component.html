@@ -1,0 +1,35 @@
+<div fxLayout="row wrap">
+  <hc-chart>
+    <hc-title text=""></hc-title>
+    <hc-area name="area" [data]="cartesianData"></hc-area>
+    <hc-arearange name="arearange" [data]="areaData"></hc-arearange>
+    <hc-areaspline name="areaspline" [data]="areaData"></hc-areaspline>
+    <hc-areasplinerange name="areasplinerange" [data]="areaData"></hc-areasplinerange>
+    <hc-bar name="bar" [data]="cartesianData"></hc-bar>
+    <hc-column name="column" [data]="cartesianData"></hc-column>
+    <hc-line name="line" [data]="cartesianData"></hc-line>
+    <hc-spline name="spline" [data]="cartesianData"></hc-spline>
+  </hc-chart>
+
+  <hc-chart>
+    <hc-title text=""></hc-title>
+    <!--  <hc-scatter [visible]="false" name="scatter" [data]="bubbleData"></hc-scatter>-->
+    <!--  <hc-bubble name="bubble" [data]="bubbleData"></hc-bubble>-->
+    <hc-pie
+      name="pie"
+      [dataLabels]="{ enabled: false }"
+      [animation]="{ duration: 500 }"
+      [data]="pieData$ | async"
+    ></hc-pie>
+  </hc-chart>
+  <hc-chart>
+    <hc-title text=""></hc-title>
+    <hc-bubble [animation]="false" name="bubble" [data]="bubbleData$ | async"></hc-bubble>
+  </hc-chart>
+
+  <hc-chart>
+    <hc-x-axis [min]="0" [max]="40"></hc-x-axis>
+    <hc-y-axis [min]="0" [max]="40"></hc-y-axis>
+    <hc-scatter name="scatter" [dataStream]="scatterData$" [data]="[1, 2, 3]" dataStreamShift="true"></hc-scatter>
+  </hc-chart>
+</div>

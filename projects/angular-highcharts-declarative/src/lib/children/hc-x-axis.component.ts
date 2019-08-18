@@ -193,6 +193,7 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
     this.index = this.index || index;
     this.update(this.getState());
     this.initializedSub.next(true);
+    this.initializedSub.complete();
   }
 
   ngOnChanges() {

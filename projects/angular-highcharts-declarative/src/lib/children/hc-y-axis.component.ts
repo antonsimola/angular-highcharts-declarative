@@ -220,6 +220,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
     this.index = this.index || index;
     this.update(this.getState());
     this.initializedSub.next(true);
+    this.initializedSub.complete();
   }
 
   ngOnChanges() {

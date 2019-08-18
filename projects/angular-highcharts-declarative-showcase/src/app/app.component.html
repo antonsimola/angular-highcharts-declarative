@@ -1,48 +1,71 @@
 <mat-tab-group>
   <mat-tab label="Simple start">
-    <mat-tab-group>
-      <mat-tab label="demo">
-        <app-simple></app-simple>
-      </mat-tab>
-      <mat-tab label="code">
-        <app-code [files]="['simple/simple.component.ts']"></app-code>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-tab>
-  <mat-tab label="Simple real time">
-    <mat-tab-group>
-      <mat-tab label="demo">
-        <app-simple-realtime></app-simple-realtime>
-      </mat-tab>
-      <mat-tab label="code">
-        <app-code [files]="['simple-realtime/simple-realtime.component.ts']"></app-code>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-tab>
-  <mat-tab label="Feature showcase">
-    <div fxLayout="row">
+    <ng-template matTabContent>
       <mat-tab-group>
         <mat-tab label="demo">
-          <app-kitchen-sink></app-kitchen-sink>
+          <app-simple></app-simple>
         </mat-tab>
         <mat-tab label="code">
-          <app-code
-            [files]="['kitchen-sink/kitchen-sink.component.html', 'kitchen-sink/kitchen-sink.component.ts']"
-          ></app-code>
+          <app-code [files]="['simple/simple.component.ts']"></app-code>
         </mat-tab>
       </mat-tab-group>
-    </div>
+    </ng-template>
   </mat-tab>
-  <mat-tab label="Extra props">
+  <mat-tab label="Simple real time">
+    <ng-template matTabContent>
+      <mat-tab-group>
+        <mat-tab label="demo">
+          <app-simple-realtime></app-simple-realtime>
+        </mat-tab>
+        <mat-tab label="code">
+          <app-code [files]="['simple-realtime/simple-realtime.component.ts']"></app-code>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Feature showcase">
     <mat-tab-group>
       <mat-tab label="demo">
-        <app-extra-props></app-extra-props>
+        <app-kitchen-sink></app-kitchen-sink>
       </mat-tab>
       <mat-tab label="code">
         <app-code
-          [files]="['extra-props/extra-props.component.html', 'extra-props/extra-props.component.ts']"
+          [files]="['kitchen-sink/kitchen-sink.component.html', 'kitchen-sink/kitchen-sink.component.ts']"
         ></app-code>
       </mat-tab>
     </mat-tab-group>
+  </mat-tab>
+
+  <mat-tab label="Dedicated series components">
+    <ng-template matTabContent>
+      <mat-tab-group>
+        <mat-tab label="demo">
+          <app-dedicated-series-components></app-dedicated-series-components>
+        </mat-tab>
+        <mat-tab label="code">
+          <app-code
+            [files]="[
+              'dedicated-series-components/dedicated-series-components.component.html',
+              'dedicated-series-components/dedicated-series-components.component.ts'
+            ]"
+          ></app-code>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Extra props">
+    <ng-template matTabContent>
+      <mat-tab-group>
+        <mat-tab label="demo">
+          <app-extra-props></app-extra-props>
+        </mat-tab>
+        <mat-tab label="code">
+          <app-code
+            [files]="['extra-props/extra-props.component.html', 'extra-props/extra-props.component.ts']"
+          ></app-code>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>

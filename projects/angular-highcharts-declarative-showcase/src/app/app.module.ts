@@ -39,9 +39,18 @@ import * as _3d from 'highcharts/highcharts-3d.src';
 import { CodeComponent } from './code/code.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SimpleRealtimeComponent } from './simple-realtime/simple-realtime.component';
+import { DedicatedSeriesComponentsComponent } from './dedicated-series-components/dedicated-series-components.component';
 
 @NgModule({
-  declarations: [AppComponent, SimpleComponent, KitchenSinkComponent, ExtraPropsComponent, CodeComponent, SimpleRealtimeComponent],
+  declarations: [
+    AppComponent,
+    SimpleComponent,
+    KitchenSinkComponent,
+    ExtraPropsComponent,
+    CodeComponent,
+    SimpleRealtimeComponent,
+    DedicatedSeriesComponentsComponent
+  ],
   imports: [
     BrowserModule,
     HcChartModule, // <<<<<< basic use of highcharts components
