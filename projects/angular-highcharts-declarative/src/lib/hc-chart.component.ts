@@ -13,8 +13,7 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild
 } from '@angular/core';
 import {
   AnimationOptionsObject,
@@ -40,6 +39,8 @@ import { HcSeriesComponent } from './children/hc-series.component';
 import { HcXAxisComponent } from './children/hc-x-axis.component';
 import { HcYAxisComponent } from './children/hc-y-axis.component';
 import { BehaviorSubject } from 'rxjs';
+import { HcTitleComponent } from './children/hc-title.component';
+import { HcSubtitleComponent } from './children/hc-subtitle.component';
 
 @Component({
   selector: 'hc-chart',
@@ -151,6 +152,8 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   zoomKey?: OptionsZoomKeyValue;
   @Input()
   zoomType?: OptionsZoomTypeValue;
+  @Input()
+  extra: any;
 
   @Output()
   chartReady = new EventEmitter<Chart>();
@@ -158,6 +161,8 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   chartReady$ = this.chartService.chart$;
   private initializedSubject = new BehaviorSubject<boolean>(false);
 
+  @ContentChildren(HcTitleComponent) private titles: QueryList<HcTitleComponent>;
+  @ContentChildren(HcSubtitleComponent) private subtitles: QueryList<HcSubtitleComponent>;
   @ContentChildren(HcSeriesComponent) private series: QueryList<HcSeriesComponent>;
   @ContentChildren(HcXAxisComponent) private xAxes: QueryList<HcXAxisComponent>;
   @ContentChildren(HcYAxisComponent) private yAxes: QueryList<HcYAxisComponent>;
@@ -175,13 +180,15 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   }
 
   getState() {
-    const state = { ...this };
+    const state = { ...this, ...this.extra };
     delete state.series;
     delete state.yAxes;
     delete state.xAxes;
     delete state.chartDiv;
     delete state.zone;
     delete state.chartService;
+    delete state.titles;
+    delete state.subtitles;
     return state;
   }
 

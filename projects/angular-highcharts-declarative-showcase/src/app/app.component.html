@@ -9,6 +9,16 @@
       </mat-tab>
     </mat-tab-group>
   </mat-tab>
+  <mat-tab label="Simple real time">
+    <mat-tab-group>
+      <mat-tab label="demo">
+        <app-simple-realtime></app-simple-realtime>
+      </mat-tab>
+      <mat-tab label="code">
+        <app-code [files]="['simple-realtime/simple-realtime.component.ts']"></app-code>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
   <mat-tab label="Feature showcase">
     <div fxLayout="row">
       <mat-tab-group>

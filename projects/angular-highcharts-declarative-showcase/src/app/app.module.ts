@@ -38,9 +38,10 @@ import * as funnel3d from 'highcharts/modules/funnel3d';
 import * as _3d from 'highcharts/highcharts-3d.src';
 import { CodeComponent } from './code/code.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SimpleRealtimeComponent } from './simple-realtime/simple-realtime.component';
 
 @NgModule({
-  declarations: [AppComponent, SimpleComponent, KitchenSinkComponent, ExtraPropsComponent, CodeComponent],
+  declarations: [AppComponent, SimpleComponent, KitchenSinkComponent, ExtraPropsComponent, CodeComponent, SimpleRealtimeComponent],
   imports: [
     BrowserModule,
     HcChartModule, // <<<<<< basic use of highcharts components

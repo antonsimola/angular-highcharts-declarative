@@ -114,4 +114,14 @@ export class HcChartService {
       });
     });
   }
+
+  addPoint(index: number, v: any, shift = true) {
+    this.chart$.subscribe(c => {
+      this.zone.runOutsideAngular(() => {
+        if (c.series[index]) {
+          c.series[index].addPoint(v, true, shift);
+        }
+      });
+    });
+  }
 }

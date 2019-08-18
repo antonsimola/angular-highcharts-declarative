@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {MapDataObject, Series, SeriesOptions} from 'highcharts';
-import {HcChartService} from '../hc-chart.service';
-import {BehaviorSubject} from 'rxjs';
-import {first} from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { MapDataObject, Series, SeriesOptions } from 'highcharts';
+import { HcChartService } from '../hc-chart.service';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { changesToFlat } from '../helpers';
 
 @Component({
   selector: 'hc-series',
@@ -35,15 +36,30 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   data = null;
 
   @Input()
+  dataStream: Observable<any> = null;
+  /**
+   * Whether to also remove one point from end while pushing
+   */
+  @Input()
+  dataStreamShift = false;
+
+  @Input()
   extra: any = null;
 
   private initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
+  private dataSub: Subscription;
 
-  constructor(private chartService: HcChartService) {
-  }
+  constructor(private chartService: HcChartService) {}
 
   ngOnInit() {
+    this.initialized$.subscribe(() => {
+      if (this.dataStream) {
+        this.dataSub = this.dataStream.subscribe(v => {
+          this.addPoint(v, this.dataStreamShift);
+        });
+      }
+    });
   }
 
   init(index: number) {
@@ -57,12 +73,19 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   }
 
   private getState() {
-    let state = {...this};
+    let state = { ...this };
     delete state.chartService;
     delete state.initialized$;
     delete state.initializedSub;
-    state = {...state, ...state.extra};
+    delete state.dataStream;
+    delete state.dataStreamShift;
+    delete state.dataSub;
+    state = { ...state, ...state.extra };
     return state;
+  }
+
+  addPoint(value: any, shift = this.dataStreamShift) {
+    this.chartService.addPoint(this.index, value, shift);
   }
 
   update(props: Partial<SeriesOptions>) {
@@ -77,21 +100,13 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
       this.chartService.updateSeriesData(this.index, changes.data.currentValue);
     }
     delete changes.data;
-
-    let updates = {} as SeriesOptions;
-    for (const [key, value] of Object.entries(changes)) {
-      if (value.isFirstChange()) {
-        continue;
-      }
-      if (key === 'extra') {
-        updates = {...updates, ...value.currentValue};
-      }
-      updates[key] = value.currentValue;
-    }
-    this.update(updates);
+    this.update(changesToFlat(changes));
   }
 
   ngOnDestroy() {
+    if (this.dataSub) {
+      this.dataSub.unsubscribe();
+    }
     this.chartService.removeSeries(this.index);
   }
 }

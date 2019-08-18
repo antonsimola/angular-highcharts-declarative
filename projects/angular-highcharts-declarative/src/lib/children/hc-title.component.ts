@@ -1,45 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { HcChartService } from '../hc-chart.service';
-import { AlignValue, CSSObject, SubtitleOptions, TitleOptions, VerticalAlignValue } from 'highcharts';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {HcChartService} from '../hc-chart.service';
+import {TitleOptions} from 'highcharts';
+import {AbstractTitleComponent, hiddenStyles} from './abstract-title.component';
 
 @Component({
   selector: 'hc-title',
-  template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '<span *ngIf="!text" style="visibility: hidden;width: 0;height:0;" #text><ng-content></ng-content></span>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: hiddenStyles
 })
-export class HcTitleComponent implements OnInit, OnChanges, TitleOptions {
-  @Input()
-  align?: AlignValue;
-  @Input()
-  floating?: boolean;
+export class HcTitleComponent extends AbstractTitleComponent implements TitleOptions {
+  key = 'title';
   @Input()
   margin?: number;
-  @Input()
-  style?: CSSObject;
-  @Input()
-  text?: string;
-  @Input()
-  useHTML?: boolean;
-  @Input()
-  verticalAlign?: VerticalAlignValue;
-  @Input()
-  widthAdjust?: number;
-  @Input()
-  x?: number;
-  @Input()
-  y?: number;
 
-  constructor(private chartService: HcChartService) {}
-
-  ngOnInit() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    const state = { ...this };
-    delete state.chartService;
-    this.update(state);
-  }
-
-  update(props: Partial<TitleOptions>) {
-    this.chartService.update({ title: props });
+  constructor(chartService: HcChartService) {
+    super(chartService);
   }
 }
