@@ -11,16 +11,6 @@ import { HcChartService } from '../hc-chart.service';
 import { changesToFlat } from '../helpers';
 import { AlignValue, CSSObject, SubtitleOptions, VerticalAlignValue } from 'highcharts';
 
-export const hiddenStyles = [
-  `
-      :host {
-        width: 0;
-        height: 0;
-        visibility: hidden;
-      }
-    `
-];
-
 export abstract class AbstractTitleComponent implements OnInit, OnChanges, AfterContentChecked {
   abstract key: string;
   @Input()

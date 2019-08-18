@@ -3,6 +3,8 @@
 Declarative and reactive wrapper for Highcharts.
 Warning: fairly experimental and lacking some features still. Plan is to make it stable though.
 
+Demo: https://antonsimola.github.io/angular-highcharts-declarative/
+
 ## Install
 
 1. Highcharts if you don't have already: `npm i highcharts`
