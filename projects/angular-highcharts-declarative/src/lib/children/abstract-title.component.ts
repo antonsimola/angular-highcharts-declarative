@@ -1,6 +1,5 @@
 import {
   AfterContentChecked,
-  Component,
   ElementRef,
   Input,
   OnChanges,
@@ -22,14 +21,8 @@ export const hiddenStyles = [
     `
 ];
 
-// noinspection AngularMissingOrInvalidDeclarationInModule
-@Component({
-  selector: 'hc-abstract-title',
-  template: ''
-})
 export abstract class AbstractTitleComponent implements OnInit, OnChanges, AfterContentChecked {
   abstract key: string;
-
   @Input()
   align?: AlignValue;
   @Input()
