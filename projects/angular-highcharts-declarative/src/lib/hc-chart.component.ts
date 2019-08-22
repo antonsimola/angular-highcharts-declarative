@@ -34,26 +34,26 @@ import {
   OptionsZoomTypeValue,
   PatternObject
 } from 'highcharts';
-import {HcChartService} from './hc-chart.service';
-import {HcSeriesComponent} from './children/hc-series.component';
-import {HcXAxisComponent} from './children/hc-x-axis.component';
-import {HcYAxisComponent} from './children/hc-y-axis.component';
-import {BehaviorSubject} from 'rxjs';
-import {HcTitleComponent} from './children/hc-title.component';
-import {HcSubtitleComponent} from './children/hc-subtitle.component';
-import {HC_CHART_TYPES} from './highchart-enums';
-import {HcAreaComponent} from './children/series/hc-area.component';
-import {HcArearangeComponent} from './children/series/hc-arearange.component';
-import {HcLineComponent} from './children/series/hc-line.component';
-import {HcBarComponent} from './children/series/hc-bar.component';
-import {HcScatterComponent} from './children/series/hc-scatter.component';
-import {HcColumnComponent} from './children/series/hc-column.component';
-import {HcPieComponent} from './children/series/hc-pie.component';
-import {HcAreasplinerangeComponent} from './children/series/hc-areasplinerange.component';
-import {HcColumnrangeComponent} from './children/series/hc-columnrange.component';
-import {HcAreasplineComponent} from './children/series/hc-areaspline.component';
-import {HcSplineComponent} from './children/series/hc-spline.component';
-import {HcBubbleComponent} from './children/series/hc-bubble.component';
+import { HcChartService } from './hc-chart.service';
+import { HcSeriesComponent } from './children/hc-series.component';
+import { HcXAxisComponent } from './children/hc-x-axis.component';
+import { HcYAxisComponent } from './children/hc-y-axis.component';
+import { BehaviorSubject } from 'rxjs';
+import { HcTitleComponent } from './children/hc-title.component';
+import { HcSubtitleComponent } from './children/hc-subtitle.component';
+import { HC_CHART_TYPES } from './highchart-enums';
+import { HcAreaComponent } from './children/series/hc-area.component';
+import { HcArearangeComponent } from './children/series/hc-arearange.component';
+import { HcLineComponent } from './children/series/hc-line.component';
+import { HcBarComponent } from './children/series/hc-bar.component';
+import { HcScatterComponent } from './children/series/hc-scatter.component';
+import { HcColumnComponent } from './children/series/hc-column.component';
+import { HcPieComponent } from './children/series/hc-pie.component';
+import { HcAreasplinerangeComponent } from './children/series/hc-areasplinerange.component';
+import { HcColumnrangeComponent } from './children/series/hc-columnrange.component';
+import { HcAreasplineComponent } from './children/series/hc-areaspline.component';
+import { HcSplineComponent } from './children/series/hc-spline.component';
+import { HcBubbleComponent } from './children/series/hc-bubble.component';
 
 @Component({
   selector: 'hc-chart',

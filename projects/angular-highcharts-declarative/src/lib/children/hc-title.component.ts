@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {HcChartService} from '../hc-chart.service';
-import {TitleOptions} from 'highcharts';
-import {AbstractTitleComponent} from './abstract-title.component';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { HcChartService } from '../hc-chart.service';
+import { TitleOptions } from 'highcharts';
+import { AbstractTitleComponent } from './abstract-title.component';
 
 @Component({
   selector: 'hc-title',

@@ -1,8 +1,8 @@
-import {Component, DoCheck} from '@angular/core';
-import {BehaviorSubject, timer} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
-import {AxisTypeValue, OptionsZoomTypeValue} from 'highcharts';
-import {HC_CHART_TYPES} from '../../../../angular-highcharts-declarative/src/lib/highchart-enums';
+import { Component, DoCheck } from '@angular/core';
+import { BehaviorSubject, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { AxisTypeValue, OptionsZoomTypeValue } from 'highcharts';
+import { HC_CHART_TYPES } from '../../../../angular-highcharts-declarative/src/lib/highchart-enums';
 
 @Component({
   selector: 'app-kitchen-sink',

@@ -4,17 +4,17 @@ import { HcXAxisComponent } from './hc-x-axis.component';
 import { forkJoin } from 'rxjs';
 
 @Directive({
-    selector: 'hc-series[hcXAxis]'
+  selector: 'hc-series[hcXAxis]'
 })
 export class HcXAxisDirective implements OnInit {
-    @Input()
-    hcXAxis: HcXAxisComponent;
+  @Input()
+  hcXAxis: HcXAxisComponent;
 
-    constructor(private series: HcSeriesComponent) {}
+  constructor(private series: HcSeriesComponent) {}
 
-    ngOnInit() {
-        forkJoin(this.series.initialized$, this.hcXAxis.initialized$).subscribe(v => {
-            this.series.update({ xAxis: this.hcXAxis.index });
-        });
-    }
+  ngOnInit() {
+    forkJoin(this.series.initialized$, this.hcXAxis.initialized$).subscribe(v => {
+      this.series.update({ xAxis: this.hcXAxis.index });
+    });
+  }
 }

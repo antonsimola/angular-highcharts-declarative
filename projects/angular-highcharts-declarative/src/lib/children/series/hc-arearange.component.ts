@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HcSeriesComponent} from '../hc-series.component';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
   ColorString,
@@ -33,12 +33,13 @@ import {
   SeriesLinecapValue,
   ShadowOptionsObject
 } from 'highcharts';
-import {HcChartService} from '../../hc-chart.service';
+import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-arearange',
   template: ``,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcArearangeComponent extends HcSeriesComponent implements OnInit, SeriesArearangeOptions {
   @Input()

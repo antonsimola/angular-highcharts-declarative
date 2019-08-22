@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -31,7 +31,8 @@ import { HcChartService } from '../../hc-chart.service';
 @Component({
   selector: 'hc-pie',
   template: ``,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesPieOptions {
   @Input()

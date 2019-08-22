@@ -45,6 +45,9 @@ eg. `data.push(1);` won't work, use `data = [...data, 1];`
     <hc-x-axis></<hc-x-axis> <!--Can omit if simple chart, inputs XAxisOptions-->
     <hc-y-axis></<hc-y-axis> <!--Can omit if simple chart, inputs YAxisOptions-->
     <hc-series></<hc-series> <!--inputs SeriesOptions + "extra"-->
+    <hc-bar></hc-bar>
+    <hc-line></hc-line>
+    <hc-pie></hc-pie> <!--etc-->
 </hc-chart>
 ```
 

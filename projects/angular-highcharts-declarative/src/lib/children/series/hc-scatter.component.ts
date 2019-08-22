@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -39,7 +39,8 @@ import { HcChartService } from '../../hc-chart.service';
 @Component({
   selector: 'hc-scatter',
   template: ``,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcScatterComponent extends HcSeriesComponent implements OnInit, SeriesScatterOptions {
   @Input()

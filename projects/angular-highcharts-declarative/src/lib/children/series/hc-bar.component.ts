@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -34,19 +34,18 @@ import { HcChartService } from '../../hc-chart.service';
 @Component({
   selector: 'hc-bar',
   template: ``,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesBarOptions {
-
-
   @Input()
-  accessibility?: (object|PlotBarAccessibilityOptions);
+  accessibility?: object | PlotBarAccessibilityOptions;
   @Input()
   allAreas?: boolean;
   @Input()
   allowPointSelect?: boolean;
   @Input()
-  animation?: (boolean|AnimationOptionsObject|PlotBarAnimationOptions);
+  animation?: boolean | AnimationOptionsObject | PlotBarAnimationOptions;
   @Input()
   animationLimit?: number;
   @Input()
@@ -64,7 +63,7 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   clip?: boolean;
   @Input()
-  color?: (ColorString|GradientColorObject|PatternObject);
+  color?: ColorString | GradientColorObject | PatternObject;
   @Input()
   colorAxis?: boolean;
   @Input()
@@ -72,11 +71,11 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   colorIndex?: number;
   @Input()
-  colors?: Array<(ColorString|GradientColorObject|PatternObject)>;
+  colors?: Array<ColorString | GradientColorObject | PatternObject>;
   @Input()
   compare?: string;
   @Input()
-  compareBase?: (0|100);
+  compareBase?: 0 | 100;
   @Input()
   compareStart?: boolean;
   @Input()
@@ -86,11 +85,11 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   cropThreshold?: number;
   @Input()
-  cursor?: (string|CursorValue);
+  cursor?: string | CursorValue;
   @Input()
   dataGrouping?: PlotBarDataGroupingOptions;
   @Input()
-  dataLabels?: (DataLabelsOptionsObject|Array<DataLabelsOptionsObject>);
+  dataLabels?: DataLabelsOptionsObject | Array<DataLabelsOptionsObject>;
   @Input()
   depth?: number;
   @Input()
@@ -120,7 +119,7 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   includeInDataExport?: boolean;
   @Input()
-  joinBy?: (string|Array<string>);
+  joinBy?: string | Array<string>;
   @Input()
   keys?: Array<string>;
   @Input()
@@ -138,7 +137,7 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   navigatorOptions?: PlotSeriesOptions;
   @Input()
-  negativeColor?: (ColorString|GradientColorObject|PatternObject);
+  negativeColor?: ColorString | GradientColorObject | PatternObject;
   @Input()
   opacity?: number;
   @Input()
@@ -152,9 +151,9 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   pointPadding?: number;
   @Input()
-  pointPlacement?: (number|string);
+  pointPlacement?: number | string;
   @Input()
-  pointRange?: (number|null);
+  pointRange?: number | null;
   @Input()
   pointStart?: number;
   @Input()
@@ -162,7 +161,7 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   @Input()
   selected?: boolean;
   @Input()
-  shadow?: (boolean|ShadowOptionsObject);
+  shadow?: boolean | ShadowOptionsObject;
   @Input()
   showCheckbox?: boolean;
   @Input()
@@ -192,7 +191,6 @@ export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesB
   zoneAxis?: string;
   @Input()
   zones?: Array<PlotBarZonesOptions>;
-
 
   @Input()
   data?: Array<number | [(number | string), (number | null)] | null | SeriesBarDataOptions>;

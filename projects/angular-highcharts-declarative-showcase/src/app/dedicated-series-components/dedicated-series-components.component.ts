@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {map, startWith} from 'rxjs/operators';
-import {interval} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { map, startWith } from 'rxjs/operators';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-dedicated-series-components',

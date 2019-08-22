@@ -1,12 +1,4 @@
-import {
-  AfterContentChecked,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import { AfterContentChecked, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import { changesToFlat } from '../helpers';
 import { AlignValue, CSSObject, SubtitleOptions, VerticalAlignValue } from 'highcharts';

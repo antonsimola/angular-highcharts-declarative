@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import {
   AxisTickPositionerCallbackFunction,
@@ -27,7 +27,8 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'hc-x-axis',
   template: ``,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOptions {
   @Input()

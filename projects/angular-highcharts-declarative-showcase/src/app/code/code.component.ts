@@ -1,5 +1,5 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import 'prismjs';
 import 'prismjs/plugins/toolbar/prism-toolbar';
 import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
@@ -21,7 +21,6 @@ export class CodeComponent implements OnInit, AfterViewChecked {
   files: string[] = [];
 
   fileContents = {};
-
 
   prefix =
     // tslint:disable-next-line:max-line-length
@@ -47,11 +46,5 @@ export class CodeComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     Prism.highlightAll();
-  }
-
-  getLang(file: string) {
-    const splitByDot = file.split('.');
-    console.log(splitByDot[splitByDot.length - 1]);
-    return splitByDot[splitByDot.length - 1];
   }
 }
