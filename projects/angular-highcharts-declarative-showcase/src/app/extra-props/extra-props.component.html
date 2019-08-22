@@ -3,12 +3,18 @@
     <hc-series [data]="depData" [extra]="extraWheel"></hc-series>
   </hc-chart>
   <hc-chart width="500" type="line">
-    <hc-series [data]="[1,2,3,4,5]" [extra]="{dashStyle:'ShortDash'}"></hc-series>
+    <hc-line dashStyle="ShortDot" [data]="[5, 4, 3, 2, 1]" color="pink"></hc-line>
+    <!--or-->
+    <hc-series [data]="[1, 2, 3, 4, 5]" [extra]="{ dashStyle: 'ShortDash' }"></hc-series>
   </hc-chart>
 </div>
 
 <mat-form-field>
-  <input placeholder="Curve factor" matInput type="number" [(ngModel)]="extraWheel.curveFactor"
-         (ngModelChange)="inputChange()">
+  <input
+    placeholder="Curve factor"
+    matInput
+    type="number"
+    [(ngModel)]="extraWheel.curveFactor"
+    (ngModelChange)="inputChange()"
+  />
 </mat-form-field>
-
