@@ -66,8 +66,7 @@ export const HC_CHART_DEFAULTS = new InjectionToken<ChartOptions>('HC_CHART_DEFA
   templateUrl: 'hc-chart.component.html',
   styles: [],
   providers: [HcChartService], // ChartService per component
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDestroy, AfterContentInit {
   @Input()
