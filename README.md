@@ -1,4 +1,4 @@
-# Angular (>8.0) declarative Highcharts components
+# Angular (>=8.0) declarative Highcharts components
 
 Declarative and reactive wrapper for Highcharts.
 Warning: fairly experimental and lacking some features still. Plan is to make it stable though.
@@ -60,6 +60,37 @@ As an alternative of providing axis index to series, you can also use hcXAxis / 
 <hc-series [hcXAxis]="myAxis"></<hc-series>
 ```
 
+## Material styles
+
+There's also optional Material design styles if you want to use the charts with Angular Material.
+
+- Primary color is used as the first series color
+- Fonts
+- Tooltip
+- Background color = Material theme card color 
+
+1. Follow https://material.angular.io/guide/theming on how to add custom theme for your app if you haven't done already
+2. In your styles.scss, where you normally define your Material theme, add:
+```scss
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn); // this is your theme
+$material-theme-for-highcharts: $app-theme; // !!! you must provide variable called $material-theme-for-highcharts that is your theme
+@import '~angular-highcharts-declarative/styles/material-highcharts'; // !!! import the material-highcharts theme
+@include angular-material-theme($app-theme); //load your theme with the mixin normally
+```
+- Material theme works in Highcharts styled mode. Thus you would probably prefer if all charts are in styled mode by default:
+```typescript
+//app.module.ts
+import {HC_CHART_DEFAULTS} from 'angular-highcharts-declarative';    
+
+@NgModule({
+    providers: [
+        {provide : HC_CHART_DEFAULTS, useValue: {styledMode:true}}
+   ]
+})
+```
+
+(see showcase code for full example)
+
 ## Tips
 
 - Load extra modules by providing `HC_MODULES` (see showcase app.module)
@@ -103,11 +134,12 @@ Shortcomings as of now:
 - [ ] Colors
 - [ ] Better docs
 - [ ] Performance when multiple updates happening at the same time? throttle?
-- [ ] Provider for base settings for easy extension
-- [ ] Different component per series type? eg. <hc-line>, <hc-bar>...
+- [x] Injection token for base settings for easy extension `HC_CHART_DEFAULTS`
+- [x] Different component per series type? eg. hc-line, hc-bar (done: basic types)
 - [ ] Plot options
 - [ ] Tests
-- [ ] "extra" input for other components than series
+- [x] [extra] input for other components than series
+- [x] Material design theme
 - [x] Series [dataStream] attribute for real time charts (see simple realtime demo)
 - [x] Alternatively configure title or subtitle simply with innerhtml: `<hc-title>My title</hc-title`
 - [x] Expose underlying chart reference

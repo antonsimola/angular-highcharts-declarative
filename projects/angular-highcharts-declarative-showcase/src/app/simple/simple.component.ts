@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-simple',
   template: `
-    <hc-chart [type]="chartType">
-      <hc-title [text]="chartType"></hc-title>
-      <hc-series [name]="chartType" [data]="data"></hc-series>
-    </hc-chart>
+    <mat-card class="mat-elevation-z8" style="margin: 64px">
+      <hc-chart [type]="chartType">
+        <hc-title [text]="chartType"></hc-title>
+        <hc-series [name]="chartType" [data]="data"></hc-series>
+      </hc-chart>
+    </mat-card>
 
     <mat-form-field>
       <mat-select [(ngModel)]="chartType">
@@ -15,12 +17,8 @@ import { Component, OnInit } from '@angular/core';
     </mat-form-field>
   `
 })
-export class SimpleComponent implements OnInit {
+export class SimpleComponent {
   data = [1, 2, 3, 3, 2, 1];
   chartType = 'line';
   options = ['line', 'spline', 'bar', 'column'];
-
-  constructor() {}
-
-  ngOnInit() {}
 }

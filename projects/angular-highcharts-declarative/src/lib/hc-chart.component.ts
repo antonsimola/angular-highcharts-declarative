@@ -5,15 +5,19 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  Inject,
+  InjectionToken,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   QueryList,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   AnimationOptionsObject,
@@ -34,33 +38,36 @@ import {
   OptionsZoomTypeValue,
   PatternObject
 } from 'highcharts';
-import { HcChartService } from './hc-chart.service';
-import { HcSeriesComponent } from './children/hc-series.component';
-import { HcXAxisComponent } from './children/hc-x-axis.component';
-import { HcYAxisComponent } from './children/hc-y-axis.component';
-import { BehaviorSubject } from 'rxjs';
-import { HcTitleComponent } from './children/hc-title.component';
-import { HcSubtitleComponent } from './children/hc-subtitle.component';
-import { HC_CHART_TYPES } from './highchart-enums';
-import { HcAreaComponent } from './children/series/hc-area.component';
-import { HcArearangeComponent } from './children/series/hc-arearange.component';
-import { HcLineComponent } from './children/series/hc-line.component';
-import { HcBarComponent } from './children/series/hc-bar.component';
-import { HcScatterComponent } from './children/series/hc-scatter.component';
-import { HcColumnComponent } from './children/series/hc-column.component';
-import { HcPieComponent } from './children/series/hc-pie.component';
-import { HcAreasplinerangeComponent } from './children/series/hc-areasplinerange.component';
-import { HcColumnrangeComponent } from './children/series/hc-columnrange.component';
-import { HcAreasplineComponent } from './children/series/hc-areaspline.component';
-import { HcSplineComponent } from './children/series/hc-spline.component';
-import { HcBubbleComponent } from './children/series/hc-bubble.component';
+import {HcChartService} from './hc-chart.service';
+import {HcSeriesComponent} from './children/hc-series.component';
+import {HcXAxisComponent} from './children/hc-x-axis.component';
+import {HcYAxisComponent} from './children/hc-y-axis.component';
+import {BehaviorSubject} from 'rxjs';
+import {HcTitleComponent} from './children/hc-title.component';
+import {HcSubtitleComponent} from './children/hc-subtitle.component';
+import {HC_CHART_TYPES} from './highchart-enums';
+import {HcAreaComponent} from './children/series/hc-area.component';
+import {HcArearangeComponent} from './children/series/hc-arearange.component';
+import {HcLineComponent} from './children/series/hc-line.component';
+import {HcBarComponent} from './children/series/hc-bar.component';
+import {HcScatterComponent} from './children/series/hc-scatter.component';
+import {HcColumnComponent} from './children/series/hc-column.component';
+import {HcPieComponent} from './children/series/hc-pie.component';
+import {HcAreasplinerangeComponent} from './children/series/hc-areasplinerange.component';
+import {HcColumnrangeComponent} from './children/series/hc-columnrange.component';
+import {HcAreasplineComponent} from './children/series/hc-areaspline.component';
+import {HcSplineComponent} from './children/series/hc-spline.component';
+import {HcBubbleComponent} from './children/series/hc-bubble.component';
+
+export const HC_CHART_DEFAULTS = new InjectionToken<ChartOptions>('HC_CHART_DEFAULTS');
 
 @Component({
   selector: 'hc-chart',
   templateUrl: 'hc-chart.component.html',
   styles: [],
   providers: [HcChartService], // ChartService per component
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDestroy, AfterContentInit {
   @Input()
@@ -231,23 +238,33 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   // @ContentChildren(HcWordcloudComponent) private wordclouds: QueryList<HcWordcloudComponent>;
   // @ContentChildren(HcXrangeComponent) private xranges: QueryList<HcXrangeComponent>;
 
-  @ViewChild('chartDiv', { static: true }) private chartDiv: ElementRef;
-  chartTypes = HC_CHART_TYPES;
+  @ViewChild('chartDiv', {static: true}) private chartDiv: ElementRef;
+  private chartTypes = HC_CHART_TYPES;
 
   childrenInitializedSubs = [];
 
-  constructor(private zone: NgZone, private chartService: HcChartService) {}
+  constructor(
+    private zone: NgZone,
+    private chartService: HcChartService,
+    @Optional() @Inject(HC_CHART_DEFAULTS) private chartDefaults: ChartOptions
+  ) {
+  }
 
   ngOnInit() {
+    if (this.chartDefaults) {
+      for (const [key, value] of Object.entries(this.chartDefaults)) {
+        this[key] = value;
+      }
+    }
     this.chartService.chart$.subscribe(c => {
       this.initializedSubject.next(true);
       this.chartReady.emit(c);
     });
-    this.chartService.initChart(this.chartDiv, { chart: this.getInitialState() });
+    this.chartService.initChart(this.chartDiv, {chart: this.getInitialState()});
   }
 
   getState() {
-    const state = { ...this, ...this.extra };
+    const state = {...this, ...this.chartDefaults, ...this.extra};
     delete state.series;
     delete state.yAxes;
     delete state.xAxes;
@@ -256,6 +273,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     delete state.chartService;
     delete state.titles;
     delete state.subtitles;
+    delete state.chartDefaults;
     this.chartTypes.map(t => t + 's').forEach(t => delete state[t]);
     return state;
   }
@@ -303,6 +321,6 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     for (const [key, value] of Object.entries(simpleChanges)) {
       changes[key] = value.currentValue;
     }
-    this.chartService.update({ chart: changes });
+    this.chartService.update({chart: changes});
   }
 }

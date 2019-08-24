@@ -50,7 +50,7 @@ export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesP
   @Input()
   borderWidth?: number;
   @Input()
-  center?: Array<number | string | null>;
+  center?: [(number|string|null), (number|string|null)];
   @Input()
   className?: string;
   @Input()

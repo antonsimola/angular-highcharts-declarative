@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { MapDataObject, Series, SeriesOptions } from 'highcharts';
+import { Series, SeriesMapDataOptions, SeriesOptions } from 'highcharts';
 import { HcChartService } from '../hc-chart.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -18,9 +18,9 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   @Input()
   legendIndex?: number;
   @Input()
-  mapData?: MapDataObject | Array<MapDataObject>;
+  mapData?: Array<SeriesMapDataOptions> | any;
   @Input()
-  stack?: object | string;
+  stack?: string | number;
   @Input()
   xAxis?: number | string;
   @Input()

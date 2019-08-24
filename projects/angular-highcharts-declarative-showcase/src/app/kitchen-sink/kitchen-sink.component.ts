@@ -43,7 +43,7 @@ export class KitchenSinkComponent implements DoCheck {
   dXAxes = [1];
 
   ngDoCheck() {
-    // console.log('ngDoCheck');
+    console.log('ngDoCheck');
   }
 
   asyncTest() {

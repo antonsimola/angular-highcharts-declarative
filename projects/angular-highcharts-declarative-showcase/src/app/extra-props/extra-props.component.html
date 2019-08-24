@@ -3,9 +3,12 @@
     <hc-series [data]="depData" [extra]="extraWheel"></hc-series>
   </hc-chart>
   <hc-chart width="500" type="line">
-    <hc-line dashStyle="ShortDot" [data]="[5, 4, 3, 2, 1]" color="pink"></hc-line>
-    <!--or-->
-    <hc-series [data]="[1, 2, 3, 4, 5]" [extra]="{ dashStyle: 'ShortDash' }"></hc-series>
+    <!--line style in css if styled mode (in demo: true). Check highcharts documentation for this as well-->
+    <hc-line [data]="[5, 4, 3, 2, 1]"></hc-line>
+    <hc-line [data]="[1, 2, 3, 4, 5]"></hc-line>
+
+    <!-- if styledMode was false, you could do: -->
+    <!--    <hc-line [data]="[5, 4, 3, 2, 1]" dashStyle="LongDashDot"></hc-line>-->
   </hc-chart>
 </div>
 

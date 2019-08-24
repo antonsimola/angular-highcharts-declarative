@@ -3,7 +3,7 @@
     <ng-template matTabContent>
       <mat-tab-group>
         <mat-tab label="demo">
-          <app-simple></app-simple>
+          <app-simple style="margin:64px;"></app-simple>
         </mat-tab>
         <mat-tab label="code">
           <app-code [files]="['simple/simple.component.ts']"></app-code>
@@ -69,3 +69,4 @@
     </ng-template>
   </mat-tab>
 </mat-tab-group>
+<button mat-fab style="position: absolute; right:0;bottom: 0;margin-bottom: 64px;margin-right: 64px" (click)="toggleTheme()">Theme</button>

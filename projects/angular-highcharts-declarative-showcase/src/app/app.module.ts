@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatIconModule} from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,8 @@ import { HcChartModule } from '../../../angular-highcharts-declarative/src/lib/h
 import { HC_MODULES } from '../../../angular-highcharts-declarative/src/lib/hc-module-loader.service';
 import * as more from 'highcharts/highcharts-more.src';
 import * as boost from 'highcharts/modules/boost.src';
-import * as exporting from 'highcharts/modules/exporting.src';
+import * as exporting from 'highcharts/modules/exporting';
+import * as exportOffline from 'highcharts/modules/offline-exporting';
 import * as exportingData from 'highcharts/modules/export-data.src';
 import * as bellcurve from 'highcharts/modules/histogram-bellcurve.src';
 import * as heatmap from 'highcharts/modules/heatmap.src';
@@ -40,6 +41,7 @@ import { CodeComponent } from './code/code.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SimpleRealtimeComponent } from './simple-realtime/simple-realtime.component';
 import { DedicatedSeriesComponentsComponent } from './dedicated-series-components/dedicated-series-components.component';
+import { HC_CHART_DEFAULTS } from '../../../angular-highcharts-declarative/src/lib/hc-chart.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { DedicatedSeriesComponentsComponent } from './dedicated-series-component
     MatTabsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   providers: [
     {
@@ -79,6 +82,7 @@ import { DedicatedSeriesComponentsComponent } from './dedicated-series-component
         boost,
         exporting,
         exportingData,
+        exportOffline,
         items,
         bellcurve,
         heatmap,
@@ -90,7 +94,8 @@ import { DedicatedSeriesComponentsComponent } from './dedicated-series-component
         cylinder,
         networkgraph
       ]
-    }
+    },
+    { provide: HC_CHART_DEFAULTS, useValue: { styledMode: true } }
   ],
   bootstrap: [AppComponent]
 })
