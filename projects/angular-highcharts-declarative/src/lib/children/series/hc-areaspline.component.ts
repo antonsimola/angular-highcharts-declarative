@@ -40,7 +40,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-areaspline',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcAreasplineComponent }]
+
 })
 export class HcAreasplineComponent extends HcSeriesComponent implements OnInit, SeriesAreasplineOptions {
   @Input()

@@ -16,8 +16,7 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild
 } from '@angular/core';
 import {
   AnimationOptionsObject,
@@ -38,26 +37,16 @@ import {
   OptionsZoomTypeValue,
   PatternObject
 } from 'highcharts';
-import {HcChartService} from './hc-chart.service';
-import {HcSeriesComponent} from './children/hc-series.component';
-import {HcXAxisComponent} from './children/hc-x-axis.component';
-import {HcYAxisComponent} from './children/hc-y-axis.component';
-import {BehaviorSubject} from 'rxjs';
-import {HcTitleComponent} from './children/hc-title.component';
-import {HcSubtitleComponent} from './children/hc-subtitle.component';
-import {HC_CHART_TYPES} from './highchart-enums';
-import {HcAreaComponent} from './children/series/hc-area.component';
-import {HcArearangeComponent} from './children/series/hc-arearange.component';
-import {HcLineComponent} from './children/series/hc-line.component';
-import {HcBarComponent} from './children/series/hc-bar.component';
-import {HcScatterComponent} from './children/series/hc-scatter.component';
-import {HcColumnComponent} from './children/series/hc-column.component';
-import {HcPieComponent} from './children/series/hc-pie.component';
-import {HcAreasplinerangeComponent} from './children/series/hc-areasplinerange.component';
-import {HcColumnrangeComponent} from './children/series/hc-columnrange.component';
-import {HcAreasplineComponent} from './children/series/hc-areaspline.component';
-import {HcSplineComponent} from './children/series/hc-spline.component';
-import {HcBubbleComponent} from './children/series/hc-bubble.component';
+import { HcChartService } from './hc-chart.service';
+import { HcSeriesComponent } from './children/hc-series.component';
+import { HcXAxisComponent } from './children/hc-x-axis.component';
+import { HcYAxisComponent } from './children/hc-y-axis.component';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { HcTitleComponent } from './children/hc-title.component';
+import { HcSubtitleComponent } from './children/hc-subtitle.component';
+import { HC_CHART_TYPES } from './highchart-enums';
+import { HcLegendComponent } from './children/hc-legend.component';
+import { HcTooltipComponent } from './children/hc-tooltip.component';
 
 export const HC_CHART_DEFAULTS = new InjectionToken<ChartOptions>('HC_CHART_DEFAULTS');
 
@@ -186,68 +175,22 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @ContentChildren(HcSubtitleComponent) private subtitles: QueryList<HcSubtitleComponent>;
   @ContentChildren(HcXAxisComponent) private xAxes: QueryList<HcXAxisComponent>;
   @ContentChildren(HcYAxisComponent) private yAxes: QueryList<HcYAxisComponent>;
+  @ContentChildren(HcLegendComponent) private legends: QueryList<HcLegendComponent>;
+  @ContentChildren(HcTooltipComponent) private tooltips: QueryList<HcTooltipComponent>;
+
   @ContentChildren(HcSeriesComponent) private series: QueryList<HcSeriesComponent>;
 
-  @ContentChildren(HcAreaComponent) private areas: QueryList<HcAreaComponent>;
-  @ContentChildren(HcArearangeComponent) private arearanges: QueryList<HcArearangeComponent>;
-  @ContentChildren(HcAreasplineComponent) private areasplines: QueryList<HcAreasplineComponent>;
-  @ContentChildren(HcAreasplinerangeComponent) private areasplineranges: QueryList<HcAreasplinerangeComponent>;
-  @ContentChildren(HcBarComponent) private bars: QueryList<HcBarComponent>;
-  // @ContentChildren(HcBellcurveComponent) private bellcurves: QueryList<HcBellcurveComponent>;
-  // @ContentChildren(HcBoxplotComponent) private boxplots: QueryList<HcBoxplotComponent>;
-  @ContentChildren(HcBubbleComponent) private bubbles: QueryList<HcBubbleComponent>;
-  // @ContentChildren(HcBulletComponent) private bullets: QueryList<HcBulletComponent>;
-  @ContentChildren(HcColumnComponent) private columns: QueryList<HcColumnComponent>;
-  // @ContentChildren(HcColumnpyramidComponent) private columnpyramids: QueryList<HcColumnpyramidComponent>;
-  @ContentChildren(HcColumnrangeComponent) private columnranges: QueryList<HcColumnrangeComponent>;
-  // @ContentChildren(HcCylinderComponent) private cylinders: QueryList<HcCylinderComponent>;
-  // @ContentChildren(HcDependencywheelComponent) private dependencywheels: QueryList<HcDependencywheelComponent>;
-  // @ContentChildren(HcErrorbarComponent) private errorbars: QueryList<HcErrorbarComponent>;
-  // @ContentChildren(HcFunnelComponent) private funnels: QueryList<HcFunnelComponent>;
-  // @ContentChildren(HcFunnel3dComponent) private funnel3ds: QueryList<HcFunnel3dComponent>;
-  // @ContentChildren(HcGaugeComponent) private gauges: QueryList<HcGaugeComponent>;
-  // @ContentChildren(HcHeatmapComponent) private heatmaps: QueryList<HcHeatmapComponent>;
-  // @ContentChildren(HcHistogramComponent) private histograms: QueryList<HcHistogramComponent>;
-  // @ContentChildren(HcItemComponent) private items: QueryList<HcItemComponent>;
-  @ContentChildren(HcLineComponent) private lines: QueryList<HcLineComponent>;
-  // @ContentChildren(HcNetworkgraphComponent) private networkgraphs: QueryList<HcNetworkgraphComponent>;
-  // @ContentChildren(HcOrganizationComponent) private organizations: QueryList<HcOrganizationComponent>;
-  // @ContentChildren(HcPackedbubbleComponent) private packedbubbles: QueryList<HcPackedbubbleComponent>;
-  // @ContentChildren(HcParetoComponent) private paretos: QueryList<HcParetoComponent>;
-  @ContentChildren(HcPieComponent) private pies: QueryList<HcPieComponent>;
-  // @ContentChildren(HcPolygonComponent) private polygons: QueryList<HcPolygonComponent>;
-  // @ContentChildren(HcPyramidComponent) private pyramids: QueryList<HcPyramidComponent>;
-  // @ContentChildren(HcPyramid3dComponent) private pyramid3ds: QueryList<HcPyramid3dComponent>;
-  // @ContentChildren(HcSankeyComponent) private sankeys: QueryList<HcSankeyComponent>;
-  @ContentChildren(HcScatterComponent) private scatters: QueryList<HcScatterComponent>;
-  // @ContentChildren(HcScatter3dComponent) private scatter3ds: QueryList<HcScatter3dComponent>;
-  // @ContentChildren(HcSolidgaugeComponent) private solidgauges: QueryList<HcSolidgaugeComponent>;
-  @ContentChildren(HcSplineComponent) private splines: QueryList<HcSplineComponent>;
-  // @ContentChildren(HcStreamgraphComponent) private streamgraphs: QueryList<HcStreamgraphComponent>;
-  // @ContentChildren(HcSunburstComponent) private sunbursts: QueryList<HcSunburstComponent>;
-  // @ContentChildren(HcTilemapComponent) private tilemaps: QueryList<HcTilemapComponent>;
-  // @ContentChildren(HcTimelineComponent) private timelines: QueryList<HcTimelineComponent>;
-  // @ContentChildren(HcTreemapComponent) private treemaps: QueryList<HcTreemapComponent>;
-  // @ContentChildren(HcVariablepieComponent) private variablepies: QueryList<HcVariablepieComponent>;
-  // @ContentChildren(HcVariwideComponent) private variwides: QueryList<HcVariwideComponent>;
-  // @ContentChildren(HcVectorComponent) private vectors: QueryList<HcVectorComponent>;
-  // @ContentChildren(HcVennComponent) private venns: QueryList<HcVennComponent>;
-  // @ContentChildren(HcWaterfallComponent) private waterfalls: QueryList<HcWaterfallComponent>;
-  // @ContentChildren(HcWindbarbComponent) private windbarbs: QueryList<HcWindbarbComponent>;
-  // @ContentChildren(HcWordcloudComponent) private wordclouds: QueryList<HcWordcloudComponent>;
-  // @ContentChildren(HcXrangeComponent) private xranges: QueryList<HcXrangeComponent>;
-
-  @ViewChild('chartDiv', {static: true}) private chartDiv: ElementRef;
+  @ViewChild('chartDiv', { static: true }) private chartDiv: ElementRef;
   private chartTypes = HC_CHART_TYPES;
 
   childrenInitializedSubs = [];
+  private subs: Subscription[] = [];
 
   constructor(
     private zone: NgZone,
     private chartService: HcChartService,
     @Optional() @Inject(HC_CHART_DEFAULTS) private chartDefaults: ChartOptions
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     if (this.chartDefaults) {
@@ -259,12 +202,17 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
       this.initializedSubject.next(true);
       this.chartReady.emit(c);
     });
-    this.chartService.initChart(this.chartDiv, {chart: this.getInitialState()});
+    this.chartService.initChart(this.chartDiv, {
+      chart: this.getInitialState(),
+      ...this.extra,
+      tooltip: {} // hack to get tooltip to show, have to investigate better option
+    });
   }
 
   getState() {
-    const state = {...this, ...this.chartDefaults, ...this.extra};
+    const state = { ...this, ...this.chartDefaults, ...this.extra };
     delete state.series;
+    delete state.subs;
     delete state.yAxes;
     delete state.xAxes;
     delete state.chartDiv;
@@ -272,8 +220,16 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     delete state.chartService;
     delete state.titles;
     delete state.subtitles;
+    delete state.legends;
+    delete state.tooltips;
     delete state.chartDefaults;
-    this.chartTypes.map(t => t + 's').forEach(t => delete state[t]);
+    delete state.chartReady;
+    delete state.childrenReady;
+    delete state.chartReady$;
+    delete state.initializedSubject;
+    delete state.chartTypes;
+    delete state.extra;
+    delete state.childrenInitializedSubs;
     return state;
   }
 
@@ -288,6 +244,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   }
 
   ngOnDestroy() {
+    this.subs.forEach(s => s.unsubscribe());
     this.chartService.destroyChart();
   }
 
@@ -297,17 +254,19 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     }
     this[key].forEach(s => this.childrenInitializedSubs.push(s.initialized$));
     this[key].forEach((s, ind) => s.init(ind));
-    this[key].changes.subscribe(_ => {
-      this[key].forEach((s, ind) => s.init(ind));
-    });
+    this.subs.push(
+      this[key].changes.subscribe(_ => {
+        this[key].forEach((s, ind) => s.init(ind));
+      })
+    );
   }
 
   ngAfterContentInit() {
     const componentThis = this;
+
     this.zone.runOutsideAngular(() => {
-      ['series', 'xAxes', 'yAxes', ...this.chartTypes.map(t => t + 's')].forEach(key =>
-        this.initChild.bind(componentThis)(key)
-      );
+      this.tooltips.forEach(t => t.setSeries(null));
+      ['series', 'xAxes', 'yAxes'].forEach(key => this.initChild.bind(componentThis)(key));
       // combineLatest(...this.childrenInitializedSubs).subscribe(_ => this.chartReady$.subscribe(c => this.childrenReady.emit(c)));
     });
   }
@@ -320,6 +279,6 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     for (const [key, value] of Object.entries(simpleChanges)) {
       changes[key] = value.currentValue;
     }
-    this.chartService.update({chart: changes});
+    this.chartService.update({ chart: changes });
   }
 }

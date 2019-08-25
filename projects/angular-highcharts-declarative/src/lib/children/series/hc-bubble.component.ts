@@ -41,7 +41,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-bubble',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcBubbleComponent }]
+
 })
 export class HcBubbleComponent extends HcSeriesComponent implements OnInit, SeriesBubbleOptions {
   @Input()

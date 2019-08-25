@@ -40,12 +40,14 @@ eg. `data.push(1);` won't work, use `data = [...data, 1];`
 
 ```html
 <hc-chart> <!--Inputs ChartOptions-->
-    <hc-title>Title</<hc-title> <!-- inputs TitleOptions. Use either [text] or specify inside the tag-->
-    <hc-subtitle>Subtitle</<hc-subtitle> <!--inputs SubtitleOptions. Use either [text] or specify inside the tag-->
+    <hc-title>Title</<hc-title> <!-- inputs TitleOptions. Use either [text] or specify inside the tag. InnerHTML is init only!-->
+    <hc-subtitle>Subtitle</<hc-subtitle> <!--inputs SubtitleOptions, similar to hc-title-->
+    <hc-legend></<hc-legend> <!--inputs LegendOptions-->
+    <hc-tooltip></<hc-tooltip> <!--inputs TooltipOptions. It can be also specified inside a series component-->
     <hc-x-axis></<hc-x-axis> <!--Can omit if simple chart, inputs XAxisOptions-->
     <hc-y-axis></<hc-y-axis> <!--Can omit if simple chart, inputs YAxisOptions-->
     <hc-series></<hc-series> <!--inputs SeriesOptions + "extra"-->
-    <hc-bar></hc-bar>
+    <hc-bar></hc-bar> <!--inputs SeriesBarOptions-->
     <hc-line></hc-line>
     <hc-pie></hc-pie> <!--etc-->
 </hc-chart>
@@ -126,7 +128,7 @@ Shortcomings as of now:
 ## Todo
 
 - [ ] Events for chart, series, points
-- [ ] Legend
+- [x] Legend
 - [ ] Tooltip formatter, other formatters
 - [ ] Zaxis
 - [ ] Drilldown

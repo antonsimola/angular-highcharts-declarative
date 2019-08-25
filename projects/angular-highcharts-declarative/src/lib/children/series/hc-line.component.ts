@@ -40,7 +40,8 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-line',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcLineComponent }]
 })
 export class HcLineComponent extends HcSeriesComponent implements OnInit, SeriesLineOptions {
   @Input()

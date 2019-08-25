@@ -40,7 +40,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-area',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcAreaComponent }]
+
 })
 export class HcAreaComponent extends HcSeriesComponent implements OnInit, SeriesAreaOptions {
   @Input()

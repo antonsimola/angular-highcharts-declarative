@@ -5,6 +5,8 @@ export * from './lib/hc-chart.component';
 export * from './lib/children/hc-x-axis.component';
 export * from './lib/children/hc-y-axis.component';
 export * from './lib/children/hc-series.component';
+export * from './lib/children/hc-legend.component';
+export * from './lib/children/hc-tooltip.component';
 export * from './lib/hc-chart.module';
 export * from './lib/hc-module-loader.service';
 export * from './lib/children/hc-x-axis.directive';

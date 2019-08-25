@@ -41,6 +41,9 @@ export class KitchenSinkComponent implements DoCheck {
   visible = true;
   dSeries = [3, 4, 5];
   dXAxes = [1];
+  legendEnabled = true;
+  tooltipEnabled = true;
+  valueSuffix = 'm3';
 
   ngDoCheck() {
     console.log('ngDoCheck');

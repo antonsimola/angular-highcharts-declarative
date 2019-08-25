@@ -35,7 +35,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-bar',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcBarComponent }]
+
 })
 export class HcBarComponent extends HcSeriesComponent implements OnInit, SeriesBarOptions {
   @Input()

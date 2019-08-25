@@ -21,6 +21,8 @@ import { HcScatterComponent } from './children/series/hc-scatter.component';
 import { HcAreasplineComponent } from './children/series/hc-areaspline.component';
 import { HcAreasplinerangeComponent } from './children/series/hc-areasplinerange.component';
 import { HcColumnrangeComponent } from './children/series/hc-columnrange.component';
+import { HcLegendComponent } from './children/hc-legend.component';
+import { HcTooltipComponent } from './children/hc-tooltip.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { HcColumnrangeComponent } from './children/series/hc-columnrange.compone
     HcScatterComponent,
     HcAreasplineComponent,
     HcAreasplinerangeComponent,
-    HcColumnrangeComponent
+    HcColumnrangeComponent,
+    HcLegendComponent,
+    HcTooltipComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -66,7 +70,9 @@ import { HcColumnrangeComponent } from './children/series/hc-columnrange.compone
     HcScatterComponent,
     HcAreasplineComponent,
     HcAreasplinerangeComponent,
-    HcColumnrangeComponent
+    HcColumnrangeComponent,
+    HcLegendComponent,
+    HcTooltipComponent
   ],
   providers: [{ provide: HC_MODULES, useValue: [] }]
 })

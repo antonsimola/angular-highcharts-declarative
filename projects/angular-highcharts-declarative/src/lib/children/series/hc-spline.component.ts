@@ -39,7 +39,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-spline',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcSplineComponent }]
+
 })
 export class HcSplineComponent extends HcSeriesComponent implements OnInit, SeriesSplineOptions {
   @Input()

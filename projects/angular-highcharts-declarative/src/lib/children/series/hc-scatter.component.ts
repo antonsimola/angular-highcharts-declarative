@@ -40,7 +40,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-scatter',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcScatterComponent }]
+
 })
 export class HcScatterComponent extends HcSeriesComponent implements OnInit, SeriesScatterOptions {
   @Input()

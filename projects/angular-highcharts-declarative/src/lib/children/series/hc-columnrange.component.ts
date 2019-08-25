@@ -35,7 +35,9 @@ import { HcChartService } from '../../hc-chart.service';
   selector: 'hc-columnrange',
   template: ``,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: HcSeriesComponent, useExisting: HcColumnrangeComponent }]
+
 })
 export class HcColumnrangeComponent extends HcSeriesComponent implements OnInit, SeriesColumnrangeOptions {
   @Input()

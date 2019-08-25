@@ -5,14 +5,14 @@ import { AbstractTitleComponent } from './abstract-title.component';
 
 @Component({
   selector: 'hc-title',
-  template: '<span *ngIf="!text" style="visibility: hidden;width: 0;height:0;" #text><ng-content></ng-content></span>',
+  template: '<span *ngIf="!text" style="display: none;width: 0;height:0;" #text><ng-content></ng-content></span>',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {
         width: 0;
         height: 0;
-        visibility: hidden;
+        display: none;
       }
     `
   ]

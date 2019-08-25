@@ -53,10 +53,11 @@ export class HcChartService {
     }
   }
 
-  addSeries(param: SeriesOptions) {
+  addSeries(param: SeriesOptions, cb: () => void = null) {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         c.addSeries(param as any);
+        if (cb) { cb(); }
       });
     });
   }

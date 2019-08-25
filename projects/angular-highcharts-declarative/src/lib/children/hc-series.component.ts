@@ -1,16 +1,32 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  SimpleChanges,
+  ViewChildren
+} from '@angular/core';
 import { Series, SeriesMapDataOptions, SeriesOptions } from 'highcharts';
 import { HcChartService } from '../hc-chart.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { changesToFlat } from '../helpers';
+import { HcTooltipComponent } from './hc-tooltip.component';
 
 @Component({
   selector: 'hc-series',
-  template: '',
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOptions {
+  @HostBinding('class.hc-series') seriesClass = true;
   @Input()
   id?: string;
   @Input()
@@ -46,9 +62,12 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   @Input()
   extra: any = null;
 
+  @ContentChildren(HcTooltipComponent) tooltips: QueryList<HcTooltipComponent>;
+
   private initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
   private dataSub: Subscription;
+  private changesSub: Subscription;
 
   constructor(private chartService: HcChartService) {}
 
@@ -67,10 +86,12 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
       return;
     }
     this.index = this.index || index;
-
-    this.chartService.addSeries(this.getState());
-    this.initializedSub.next(true);
-    this.initializedSub.complete();
+    this.chartService.addSeries(this.getState(), () => {
+      this.changesSub = this.tooltips.changes.subscribe(v => this.tooltips.forEach(t => t.setSeries(this.index)));
+      this.tooltips.forEach(t => t.setSeries(this.index));
+      this.initializedSub.next(true);
+      this.initializedSub.complete();
+    });
   }
 
   private getState() {
@@ -112,6 +133,9 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   ngOnDestroy() {
     if (this.dataSub) {
       this.dataSub.unsubscribe();
+    }
+    if (this.changesSub) {
+      this.changesSub.unsubscribe();
     }
     this.chartService.removeSeries(this.index);
   }

@@ -2,22 +2,28 @@
 <hc-chart *ngIf="visible" [zoomType]="zoomType" type="column">
   <hc-title [text]="title | uppercase"></hc-title>
   <hc-subtitle [text]="title | lowercase" verticalAlign="bottom"></hc-subtitle>
-
+  <hc-legend [enabled]="legendEnabled" [title]="{ text: 'man, you are a legend' }"></hc-legend>
   <hc-x-axis #mainAxis [type]="xAxisType" [title]="{ text: 'My x axis' }"></hc-x-axis>
   <hc-x-axis #secX reversed="true" type="" [title]="{ text: 'Sec axis' }" [min]="1" [max]="max"></hc-x-axis>
   <hc-y-axis [title]="{ text: 'My Y axis' }"></hc-y-axis>
   <hc-y-axis #secY opposite="true" [title]="{ text: 'Sec Y axis' }"></hc-y-axis>
   <hc-x-axis *ngFor="let dXAxis of dXAxes" [title]="{ text: 'Dyn x axis' + dXAxis }"></hc-x-axis>
 
-  <hc-series [hcXAxis]="mainAxis" [name]="series1name" [type]="seriesType" [data]="data"></hc-series>
+  <hc-series [hcXAxis]="mainAxis" [name]="series1name" [type]="seriesType" [data]="data">
+    <!--tooltip special for series 1-->
+    <hc-tooltip valueSuffix=" ser1"></hc-tooltip>
+  </hc-series>
   <hc-series [hcXAxis]="secX" [hcYAxis]="secY" [name]="'Series 2'" [data]="secondData"></hc-series>
   <hc-series name="Async" [data]="asyncData | async"></hc-series>
   <hc-series *ngFor="let dSerie of dSeries" [name]="'Dyn' + dSerie" [index]="dSerie" [data]="[dSerie]"></hc-series>
+
+<!--  <hc-line name="line" [data]="[1, 2, 3, 4, 5]"></hc-line>-->
+  <hc-tooltip [enabled]="tooltipEnabled" [shared]="false" [valueSuffix]="valueSuffix"></hc-tooltip>
 </hc-chart>
 
-<!---Reactivity demo inputs -->
+<!-- Reactivity demo inputs -->
 <button mat-raised-button (click)="asyncTest()">Async test</button>
-<div fxLayout="row wrap" fxLayoutGap="16px">
+<div fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
   <mat-checkbox [(ngModel)]="visible">Toggle chart on/off</mat-checkbox>
   <mat-form-field>
     <input type="number" placeholder="Random points # (series 1)" matInput [(ngModel)]="dataPointsCount" />
@@ -37,6 +43,9 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field><input matInput placeholder="title (pipe uppercase)" [(ngModel)]="title"/></mat-form-field>
+  <mat-checkbox [(ngModel)]="legendEnabled">Toggle legend</mat-checkbox>
+  <mat-checkbox [(ngModel)]="tooltipEnabled">Toggle Tooltip</mat-checkbox>
+  <mat-form-field> <input matInput placeholder="value suffix" [(ngModel)]="valueSuffix"/></mat-form-field>
 
   <mat-form-field>
     <mat-select placeholder="zoomType" [(ngModel)]="zoomType">
@@ -44,7 +53,7 @@
     </mat-select>
   </mat-form-field>
 </div>
-<div fxLayout="row" fxLayoutGap="16px">
+<div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="bottom">
   <mat-form-field
     ><input matInput placeholder="Value to add" type="number" [(ngModel)]="valueToAdd" width="100%" />
   </mat-form-field>
@@ -68,5 +77,3 @@
   <button mat-raised-button (click)="addXAxis()">Add xAxis</button>
   <button mat-raised-button (click)="removeXAxis()">Remove xAxis</button>
 </div>
-
-
