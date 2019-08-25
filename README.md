@@ -129,7 +129,8 @@ Shortcomings as of now:
 
 - [ ] Events for chart, series, points
 - [x] Legend
-- [ ] Tooltip formatter, other formatters
+- [x] Tooltip
+- [ ] Tooltip formatter as template? Would be cool but is it possible?
 - [ ] Zaxis
 - [ ] Drilldown
 - [ ] Data
