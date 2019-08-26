@@ -23,6 +23,7 @@ import { HcAreasplinerangeComponent } from './children/series/hc-areasplinerange
 import { HcColumnrangeComponent } from './children/series/hc-columnrange.component';
 import { HcLegendComponent } from './children/hc-legend.component';
 import { HcTooltipComponent } from './children/hc-tooltip.component';
+import { HcPointComponent } from './children/hc-point.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { HcTooltipComponent } from './children/hc-tooltip.component';
     HcAreasplinerangeComponent,
     HcColumnrangeComponent,
     HcLegendComponent,
-    HcTooltipComponent
+    HcTooltipComponent,
+    HcPointComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -72,7 +74,8 @@ import { HcTooltipComponent } from './children/hc-tooltip.component';
     HcAreasplinerangeComponent,
     HcColumnrangeComponent,
     HcLegendComponent,
-    HcTooltipComponent
+    HcTooltipComponent,
+    HcPointComponent
   ],
   providers: [{ provide: HC_MODULES, useValue: [] }]
 })

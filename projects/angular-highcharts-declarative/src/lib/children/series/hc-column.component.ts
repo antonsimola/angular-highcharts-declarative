@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -33,11 +33,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-column',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcColumnComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcColumnComponent }]
 })
 export class HcColumnComponent extends HcSeriesComponent implements OnInit, SeriesColumnOptions {
   @Input()
@@ -203,8 +205,8 @@ export class HcColumnComponent extends HcSeriesComponent implements OnInit, Seri
 
   type: 'column' = 'column';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {

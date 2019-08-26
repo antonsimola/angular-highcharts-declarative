@@ -22,13 +22,18 @@ import {
   AnimationOptionsObject,
   Chart,
   Chart3dOptions,
+  ChartAddSeriesEventObject,
+  ChartClickEventObject,
   ChartEventsOptions,
   ChartOptions,
   ChartParallelAxesOptions,
   ChartResetZoomButtonOptions,
   ChartScrollablePlotAreaOptions,
+  ChartSelectionContextObject,
   ColorString,
   CSSObject,
+  DrilldownEventObject,
+  DrillupEventObject,
   GradientColorObject,
   HTMLDOMElement,
   OptionsPanKeyValue,
@@ -47,6 +52,7 @@ import { HcSubtitleComponent } from './children/hc-subtitle.component';
 import { HC_CHART_TYPES } from './highchart-enums';
 import { HcLegendComponent } from './children/hc-legend.component';
 import { HcTooltipComponent } from './children/hc-tooltip.component';
+import { registerEvents } from './helpers';
 
 export const HC_CHART_DEFAULTS = new InjectionToken<ChartOptions>('HC_CHART_DEFAULTS');
 
@@ -163,10 +169,24 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @Input()
   extra: any;
 
+  @Output() clickChart = new EventEmitter<ChartClickEventObject>();
+  @Output() addSeries = new EventEmitter<ChartAddSeriesEventObject>();
+  @Output() afterPrint = new EventEmitter<Event>();
+  @Output() beforePrint = new EventEmitter<Event>();
+  @Output() drilldown = new EventEmitter<DrilldownEventObject>();
+  @Output() drillup = new EventEmitter<DrillupEventObject>();
+  @Output() drillupall = new EventEmitter<DrillupEventObject>();
+  @Output() loadChart = new EventEmitter<Event>();
+  @Output() redraw = new EventEmitter<Event>();
+  @Output() render = new EventEmitter<Event>();
+  @Output() selection = new EventEmitter<ChartSelectionContextObject>();
+
+  // my own chart ready
   @Output()
   chartReady = new EventEmitter<Chart>();
-  @Output()
-  childrenReady = new EventEmitter<Chart>();
+
+  // @Output()
+  // childrenReady = new EventEmitter<Chart>();
 
   chartReady$ = this.chartService.chart$;
   private initializedSubject = new BehaviorSubject<boolean>(false);
@@ -178,7 +198,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @ContentChildren(HcLegendComponent) private legends: QueryList<HcLegendComponent>;
   @ContentChildren(HcTooltipComponent) private tooltips: QueryList<HcTooltipComponent>;
 
-  @ContentChildren(HcSeriesComponent) private series: QueryList<HcSeriesComponent>;
+  @ContentChildren(HcSeriesComponent, { descendants: true }) private series: QueryList<HcSeriesComponent>;
 
   @ViewChild('chartDiv', { static: true }) private chartDiv: ElementRef;
   private chartTypes = HC_CHART_TYPES;
@@ -193,9 +213,13 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   ) {}
 
   ngOnInit() {
+    const eventsToListen = registerEvents(this, this.zone, 'chart');
     if (this.chartDefaults) {
       for (const [key, value] of Object.entries(this.chartDefaults)) {
-        this[key] = value;
+        if (this[key] === null) {
+          // TODO this probably error prone...
+          this[key] = value;
+        }
       }
     }
     this.chartService.chart$.subscribe(c => {
@@ -203,14 +227,14 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
       this.chartReady.emit(c);
     });
     this.chartService.initChart(this.chartDiv, {
-      chart: this.getInitialState(),
+      chart: { ...this.getInitialState(), ...{ events: eventsToListen } },
       ...this.extra,
       tooltip: {} // hack to get tooltip to show, have to investigate better option
     });
   }
 
   getState() {
-    const state = { ...this, ...this.chartDefaults, ...this.extra };
+    const state = { ...this.chartDefaults, ...this, ...this.extra };
     delete state.series;
     delete state.subs;
     delete state.yAxes;

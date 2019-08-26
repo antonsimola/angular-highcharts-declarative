@@ -49,6 +49,44 @@ export const HC_CHART_TYPES = [
   'xrange'
 ];
 
+export const HC_EVENTS = {
+  chart: [
+    'addSeries',
+    'afterPrint',
+    'beforePrint',
+    { event: 'click', emitter: 'clickChart' },
+    'drilldown',
+    'drillup',
+    'drillupall',
+    { event: 'load', emitter: 'loadChart' },
+    'redraw',
+    'render',
+    'selection'
+  ],
+  series: [
+    'afterAnimate',
+    'checkboxClick',
+    { event: 'click', emitter: 'clickSeries' },
+    'hide',
+    'legendItemClick',
+    'mouseOut',
+    'mouseOver',
+    { event: 'show', emitter: 'showSeries' }
+  ],
+  point: [
+    { event: 'click', emitter: 'clickPoint' },
+    { event: 'drag', emitter: 'dragPoint' },
+    'dragStart',
+    { event: 'drop', emitter: 'dropPoint' },
+    'mouseOut',
+    'mouseOver',
+    'remove',
+    { event: 'select', emitter: 'selectPoint' },
+    'unselect',
+    'update'
+  ],
+  axis: ['afterBreaks', 'afterSetExtremes', 'pointBreak', 'pointInBreak', 'setExtremes']
+};
 // import { capitalize } from './helpers';
 // console.log(
 //   HC_CHART_TYPES.reduce((acc, type) => {

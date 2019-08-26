@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -37,11 +37,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-areasplinerange',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcAreasplinerangeComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcAreasplinerangeComponent }]
 })
 export class HcAreasplinerangeComponent extends HcSeriesComponent implements OnInit, SeriesAreasplinerangeOptions {
   @Input()
@@ -204,8 +206,8 @@ export class HcAreasplinerangeComponent extends HcSeriesComponent implements OnI
   stack?: undefined;
   type: 'areasplinerange' = 'areasplinerange';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {

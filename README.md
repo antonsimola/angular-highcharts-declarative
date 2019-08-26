@@ -46,9 +46,12 @@ eg. `data.push(1);` won't work, use `data = [...data, 1];`
     <hc-tooltip></<hc-tooltip> <!--inputs TooltipOptions. It can be also specified inside a series component-->
     <hc-x-axis></<hc-x-axis> <!--Can omit if simple chart, inputs XAxisOptions-->
     <hc-y-axis></<hc-y-axis> <!--Can omit if simple chart, inputs YAxisOptions-->
-    <hc-series></<hc-series> <!--inputs SeriesOptions + "extra"-->
+    <hc-series> <!--inputs SeriesOptions + "extra"-->
+        <hc-point></<hc-point> <!--optional if you want to listen to point events-->
+    </<hc-series>
+    
     <hc-bar></hc-bar> <!--inputs SeriesBarOptions-->
-    <hc-line></hc-line>
+    <hc-line></hc-line> <!--inputs SeriesLineOptions-->
     <hc-pie></hc-pie> <!--etc-->
 </hc-chart>
 ```
@@ -69,20 +72,23 @@ There's also optional Material design styles if you want to use the charts with 
 - Primary color is used as the first series color
 - Fonts
 - Tooltip
-- Background color = Material theme card color 
+- Background color = Material theme card color
 
 1. Follow https://material.angular.io/guide/theming on how to add custom theme for your app if you haven't done already
 2. In your styles.scss, where you normally define your Material theme, add:
+
 ```scss
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn); // this is your theme
 $material-theme-for-highcharts: $app-theme; // !!! you must provide variable called $material-theme-for-highcharts that is your theme
 @import '~angular-highcharts-declarative/styles/material-highcharts'; // !!! import the material-highcharts theme
 @include angular-material-theme($app-theme); //load your theme with the mixin normally
 ```
+
 - Material theme works in Highcharts styled mode. Thus you would probably prefer if all charts are in styled mode by default:
+
 ```typescript
 //app.module.ts
-import {HC_CHART_DEFAULTS} from 'angular-highcharts-declarative';    
+import {HC_CHART_DEFAULTS} from 'angular-highcharts-declarative';
 
 @NgModule({
     providers: [
@@ -97,6 +103,22 @@ import {HC_CHART_DEFAULTS} from 'angular-highcharts-declarative';
 
 - Load extra modules by providing `HC_MODULES` (see showcase app.module)
 - using "boost" module is recommended from Highcharts with big datasets (showcase uses it)
+- Get reference to underlying chart object and do advanced stuff (interop with declarative style is not tested!):
+
+```typescript
+@Component({
+  selector: 'app',
+  template: `
+    <hc-chart (chartReady)="chartReady($event)"
+    </hc-chart>
+  `
+})
+export class AppComponent {
+  chartReady(chart: Chart) {
+    //do stuff with chart
+  }
+}
+```
 
 ## Why
 
@@ -111,7 +133,8 @@ Pros compared to configuration based libraries:
 - Configuration merge logic (chart.update) is done by library
 - Use pipes for displaying titles etc.
 - Async data with async pipe
-- OK performance because it runs updates and events outside NgZone by default
+- Good performance because it runs updates and events outside NgZone by default
+- Event registration is done outside zone and event's are only propagated for the ones that are listened by user, thus reducing change detection. 
 
 Shortcomings as of now:
 
@@ -127,9 +150,17 @@ Shortcomings as of now:
 
 ## Todo
 
-- [ ] Events for chart, series, points
+Note: even though drilldown, zaxis, data etc. are not implemented, you can use them with chart [extra] input or by calling methods on the  underlying chart object directly.
+
+- [x] Events for:
+    - [x] Chart
+    - [x] Series
+    - [x] Point
+    - [x] Axes
 - [x] Legend
 - [x] Tooltip
+- [ ] Highmaps
+- [ ] Highstock
 - [ ] Tooltip formatter as template? Would be cool but is it possible?
 - [ ] Zaxis
 - [ ] Drilldown
@@ -139,7 +170,7 @@ Shortcomings as of now:
 - [ ] Performance when multiple updates happening at the same time? throttle?
 - [x] Injection token for base settings for easy extension `HC_CHART_DEFAULTS`
 - [x] Different component per series type? eg. hc-line, hc-bar (done: basic types)
-- [ ] Plot options
+- [ ] Plot options (maybe not doing in the near future, I dont find plot options that useful most of the time since same stuff can be done with series)
 - [ ] Tests
 - [x] [extra] input for other components than series
 - [x] Material design theme

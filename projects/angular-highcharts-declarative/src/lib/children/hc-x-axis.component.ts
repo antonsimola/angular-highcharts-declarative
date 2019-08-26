@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  NgZone,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import {
+  AxisPointBreakEventObject,
+  AxisSetExtremesEventObject,
   AxisTickPositionerCallbackFunction,
   AxisTypeValue,
   ColorString,
@@ -23,6 +35,7 @@ import {
 } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { registerEvents } from '../helpers';
 
 @Component({
   selector: 'hc-x-axis',
@@ -177,13 +190,19 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   units?: Array<[string, (Array<number> | null)]>;
   @Input()
   visible?: boolean;
-
   @Input()
   index = 0;
+
+  @Output() afterBreaks = new EventEmitter<any>();
+  @Output() afterSetExtremes = new EventEmitter<AxisSetExtremesEventObject>();
+  @Output() pointBreak = new EventEmitter<AxisPointBreakEventObject>();
+  @Output() pointInBreak = new EventEmitter<AxisPointBreakEventObject>();
+  @Output() setExtremes = new EventEmitter<AxisSetExtremesEventObject>();
+
   private initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
 
-  constructor(private chartService: HcChartService) {}
+  constructor(private chartService: HcChartService, private zone: NgZone) {}
 
   ngOnInit() {}
 
@@ -192,7 +211,7 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
       return;
     }
     this.index = this.index || index;
-    this.update(this.getState());
+    this.update({ ...this.getState(), ...{ events: registerEvents(this, this.zone, 'axis') } });
     this.initializedSub.next(true);
     this.initializedSub.complete();
   }

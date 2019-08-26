@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import {
+  AxisPointBreakEventObject,
+  AxisSetExtremesEventObject,
   AxisTickPositionerCallbackFunction,
   AxisTypeValue,
   ColorString,
@@ -26,6 +38,7 @@ import {
 } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { registerEvents } from '../helpers';
 
 @Component({
   selector: 'hc-y-axis',
@@ -34,6 +47,7 @@ import { first } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOptions {
+  // TODO Abstract axis
   @Input()
   accessibility?: object | YAxisAccessibilityOptions;
   @Input()
@@ -207,10 +221,16 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   @Input()
   index: number;
 
+  @Output() afterBreaks = new EventEmitter<any>();
+  @Output() afterSetExtremes = new EventEmitter<AxisSetExtremesEventObject>();
+  @Output() pointBreak = new EventEmitter<AxisPointBreakEventObject>();
+  @Output() pointInBreak = new EventEmitter<AxisPointBreakEventObject>();
+  @Output() setExtremes = new EventEmitter<AxisSetExtremesEventObject>();
+
   protected initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
 
-  constructor(private chartService: HcChartService) {}
+  constructor(private chartService: HcChartService, private zone: NgZone) {}
 
   ngOnInit() {}
 
@@ -219,7 +239,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
       return;
     }
     this.index = this.index || index;
-    this.update(this.getState());
+    this.update({ ...this.getState(), ...{ events: registerEvents(this, this.zone, 'axis') } });
     this.initializedSub.next(true);
     this.initializedSub.complete();
   }

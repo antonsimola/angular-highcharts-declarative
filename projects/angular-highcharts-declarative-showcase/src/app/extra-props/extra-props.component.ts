@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
         stroke-dasharray: 1, 3;
       }
       :host ::ng-deep hc-chart .highcharts-series-0 {
-          stroke-dasharray: 10, 12;
+        stroke-dasharray: 10, 12;
       }
     `
   ]

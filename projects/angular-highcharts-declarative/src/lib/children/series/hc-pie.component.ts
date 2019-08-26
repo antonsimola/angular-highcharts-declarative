@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -30,11 +30,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-pie',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcPieComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcPieComponent }]
 })
 export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesPieOptions {
   @Input()
@@ -52,7 +54,7 @@ export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesP
   @Input()
   borderWidth?: number;
   @Input()
-  center?: [(number|string|null), (number|string|null)];
+  center?: [(number | string | null), (number | string | null)];
   @Input()
   className?: string;
   @Input()
@@ -172,8 +174,8 @@ export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesP
   @Input()
   type: 'pie' = 'pie';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {

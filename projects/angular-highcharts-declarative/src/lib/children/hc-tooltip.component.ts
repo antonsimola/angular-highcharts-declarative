@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges, Input } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {
   ColorString,
   CSSObject,
@@ -9,15 +9,14 @@ import {
   PatternObject,
   Point,
   ShadowOptionsObject,
-  SubtitleOptions,
   TooltipDateTimeLabelFormatsOptions,
   TooltipFormatterCallbackFunction,
   TooltipOptions,
   TooltipPositionerCallbackFunction,
   TooltipShapeValue
 } from 'highcharts';
-import { changesToFlat } from '../helpers';
-import { HcChartService } from '../hc-chart.service';
+import {changesToFlat} from '../helpers';
+import {HcChartService} from '../hc-chart.service';
 import {BehaviorSubject} from 'rxjs';
 import {first} from 'rxjs/operators';
 
@@ -122,6 +121,5 @@ export class HcTooltipComponent implements OnInit, OnChanges, TooltipOptions {
         this.chartService.update({ tooltip: props });
       }
     });
-
   }
 }

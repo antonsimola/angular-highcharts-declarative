@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatIconModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatTableModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,6 +37,7 @@ import * as sankey from 'highcharts/modules/sankey.src';
 import * as funnel from 'highcharts/modules/funnel.src';
 import * as funnel3d from 'highcharts/modules/funnel3d';
 import * as _3d from 'highcharts/highcharts-3d.src';
+import * as dragdrop from 'highcharts/modules/draggable-points.src';
 import { CodeComponent } from './code/code.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SimpleRealtimeComponent } from './simple-realtime/simple-realtime.component';
@@ -71,7 +72,8 @@ import { HC_CHART_DEFAULTS } from '../../../angular-highcharts-declarative/src/l
     BrowserAnimationsModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ],
   providers: [
     {
@@ -92,7 +94,8 @@ import { HC_CHART_DEFAULTS } from '../../../angular-highcharts-declarative/src/l
         funnel3d,
         dependencywheel,
         cylinder,
-        networkgraph
+        networkgraph,
+        dragdrop
       ]
     },
     { provide: HC_CHART_DEFAULTS, useValue: { styledMode: true } }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -39,11 +39,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-bubble',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcBubbleComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcBubbleComponent }]
 })
 export class HcBubbleComponent extends HcSeriesComponent implements OnInit, SeriesBubbleOptions {
   @Input()
@@ -215,8 +217,8 @@ export class HcBubbleComponent extends HcSeriesComponent implements OnInit, Seri
   @Input()
   type: 'bubble' = 'bubble';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {

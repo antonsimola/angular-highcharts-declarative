@@ -9,6 +9,7 @@ export * from './lib/children/hc-legend.component';
 export * from './lib/children/hc-tooltip.component';
 export * from './lib/hc-chart.module';
 export * from './lib/hc-module-loader.service';
+export * from './lib/hc-chart.service';
 export * from './lib/children/hc-x-axis.directive';
 export * from './lib/children/hc-y-axis.directive';
 export * from './lib/highchart-enums';

@@ -10,6 +10,12 @@ export class HcChartService {
 
   constructor(private zone: NgZone) {}
 
+  wrapOutsideZone(cb: (chart: Chart) => void) {
+    this.chart$.subscribe(c => {
+      this.zone.runOutsideAngular(() => cb(c));
+    });
+  }
+
   initChart(element: ElementRef, options: Options) {
     this.zone.runOutsideAngular(() => {
       const c = new Chart(element.nativeElement, options, chart => {
@@ -21,6 +27,7 @@ export class HcChartService {
   }
 
   update(options: Partial<Options>) {
+    // this.wrapOutsideZone(c => c.update(options));
     this.chart$.subscribe(chart => {
       this.zone.runOutsideAngular(() => {
         chart.update(options);
@@ -57,7 +64,9 @@ export class HcChartService {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         c.addSeries(param as any);
-        if (cb) { cb(); }
+        if (cb) {
+          cb();
+        }
       });
     });
   }

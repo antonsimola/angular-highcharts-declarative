@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {changesToFlat} from '../helpers';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { changesToFlat } from '../helpers';
 import {
   AlignValue,
   ColorString,
@@ -18,7 +18,7 @@ import {
   SubtitleOptions,
   VerticalAlignValue
 } from 'highcharts';
-import {HcChartService} from '../hc-chart.service';
+import { HcChartService } from '../hc-chart.service';
 
 @Component({
   selector: 'hc-legend',
@@ -27,17 +27,16 @@ import {HcChartService} from '../hc-chart.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HcLegendComponent implements OnInit, OnChanges, LegendOptions {
-
   @Input()
-  accessibility?: (object|LegendAccessibilityOptions);
+  accessibility?: object | LegendAccessibilityOptions;
   @Input()
   align?: AlignValue;
   @Input()
   alignColumns?: boolean;
   @Input()
-  backgroundColor?: (ColorString|GradientColorObject|PatternObject);
+  backgroundColor?: ColorString | GradientColorObject | PatternObject;
   @Input()
-  borderColor?: (ColorString|GradientColorObject|PatternObject);
+  borderColor?: ColorString | GradientColorObject | PatternObject;
   @Input()
   borderRadius?: number;
   @Input()
@@ -67,7 +66,7 @@ export class HcLegendComponent implements OnInit, OnChanges, LegendOptions {
   @Input()
   labelFormat?: string;
   @Input()
-  labelFormatter?: FormatterCallbackFunction<(Point|Series)>;
+  labelFormatter?: FormatterCallbackFunction<Point | Series>;
   @Input()
   layout?: OptionsLayoutValue;
   @Input()
@@ -83,7 +82,7 @@ export class HcLegendComponent implements OnInit, OnChanges, LegendOptions {
   @Input()
   rtl?: boolean;
   @Input()
-  shadow?: (boolean|CSSObject);
+  shadow?: boolean | CSSObject;
   @Input()
   squareSymbol?: boolean;
   @Input()
@@ -101,7 +100,7 @@ export class HcLegendComponent implements OnInit, OnChanges, LegendOptions {
   @Input()
   verticalAlign?: VerticalAlignValue;
   @Input()
-  width?: (number|string);
+  width?: number | string;
   @Input()
   x?: number;
   @Input()

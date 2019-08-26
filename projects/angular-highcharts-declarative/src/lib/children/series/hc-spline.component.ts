@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -37,11 +37,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-spline',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcSplineComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcSplineComponent }]
 })
 export class HcSplineComponent extends HcSeriesComponent implements OnInit, SeriesSplineOptions {
   @Input()
@@ -195,8 +197,8 @@ export class HcSplineComponent extends HcSeriesComponent implements OnInit, Seri
 
   type: 'spline' = 'spline';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {

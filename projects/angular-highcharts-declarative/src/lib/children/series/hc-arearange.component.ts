@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
@@ -37,11 +37,13 @@ import { HcChartService } from '../../hc-chart.service';
 
 @Component({
   selector: 'hc-arearange',
-  template: ``,
+  template: `
+    <ng-content select="hc-tooltip"></ng-content>
+    <ng-content select="hc-point"></ng-content>
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: HcSeriesComponent, useExisting: HcArearangeComponent }]
-
+  providers: [{ provide: HcSeriesComponent, useExisting: HcArearangeComponent }]
 })
 export class HcArearangeComponent extends HcSeriesComponent implements OnInit, SeriesArearangeOptions {
   @Input()
@@ -206,8 +208,8 @@ export class HcArearangeComponent extends HcSeriesComponent implements OnInit, S
   @Input()
   type: 'arearange' = 'arearange';
 
-  constructor(chartService: HcChartService) {
-    super(chartService);
+  constructor(chartService: HcChartService, zone: NgZone) {
+    super(chartService, zone);
   }
 
   ngOnInit() {
