@@ -128,6 +128,7 @@ Declarative syntax makes it easier to create simple, reactive charts. For comple
 
 Pros compared to configuration based libraries:
 
+- In general more Angular-y feel 
 - Easy to make reactive
 - Easy to update after initialization: just assign input variable again
 - Configuration merge logic (chart.update) is done by library
