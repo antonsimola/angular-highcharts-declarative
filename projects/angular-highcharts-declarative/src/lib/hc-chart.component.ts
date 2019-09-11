@@ -210,7 +210,8 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     private zone: NgZone,
     private chartService: HcChartService,
     @Optional() @Inject(HC_CHART_DEFAULTS) private chartDefaults: ChartOptions
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     const eventsToListen = registerEvents(this, this.zone, 'chart');
@@ -303,6 +304,10 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     for (const [key, value] of Object.entries(simpleChanges)) {
       changes[key] = value.currentValue;
     }
-    this.chartService.update({ chart: changes });
+    let extra: any = {};
+    if (simpleChanges.extra) {
+      extra = simpleChanges.extra.currentValue;
+    }
+    this.chartService.update({ chart: changes, ...extra });
   }
 }

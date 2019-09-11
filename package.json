@@ -1,6 +1,6 @@
 {
   "name": "angular-highcharts-declarative",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "license": "MIT",
   "author": "Anton Simola",
   "description": "Angular >=8.0 Highcharts wrapper with declarative configuration + reactive inputs",
