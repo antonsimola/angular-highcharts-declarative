@@ -185,6 +185,9 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @Output()
   chartReady = new EventEmitter<Chart>();
 
+  @Output()
+  chartInstance = new EventEmitter<Chart>();
+
   // @Output()
   // childrenReady = new EventEmitter<Chart>();
 
@@ -215,19 +218,20 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
 
   ngOnInit() {
     const eventsToListen = registerEvents(this, this.zone, 'chart');
-    if (this.chartDefaults) {
-      for (const [key, value] of Object.entries(this.chartDefaults)) {
-        if (this[key] === null) {
-          // TODO this probably error prone...
-          this[key] = value;
-        }
+    const defaults = this.chartDefaults || {};
+    for (const [key, value] of Object.entries(defaults)) {
+      if (this[key] === null) {
+        // TODO this probably error prone...
+        this[key] = value;
       }
     }
     this.chartService.chart$.subscribe(c => {
       this.initializedSubject.next(true);
       this.chartReady.emit(c);
+      this.chartInstance.emit(c);
     });
     this.chartService.initChart(this.chartDiv, {
+      ...defaults,
       chart: { ...this.getInitialState(), ...{ events: eventsToListen } },
       ...this.extra,
       tooltip: {} // hack to get tooltip to show, have to investigate better option
@@ -270,6 +274,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
 
   ngOnDestroy() {
     this.subs.forEach(s => s.unsubscribe());
+    this.chartInstance.emit(null);
     this.chartService.destroyChart();
   }
 
