@@ -41,7 +41,7 @@ export * from './lib/children/series/hc-line.component';
 // export * from './lib/children/series/hc-packedbubble.component';
 // export * from './lib/children/series/hc-pareto.component';
 export * from './lib/children/series/hc-pie.component';
-// export * from './lib/children/series/hc-polygon.component';
+export * from './lib/children/series/hc-polygon.component';
 // export * from './lib/children/series/hc-pyramid.component';
 // export * from './lib/children/series/hc-pyramid3d.component';
 // export * from './lib/children/series/hc-sankey.component';

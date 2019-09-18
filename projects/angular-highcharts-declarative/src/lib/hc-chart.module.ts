@@ -24,6 +24,7 @@ import { HcColumnrangeComponent } from './children/series/hc-columnrange.compone
 import { HcLegendComponent } from './children/hc-legend.component';
 import { HcTooltipComponent } from './children/hc-tooltip.component';
 import { HcPointComponent } from './children/hc-point.component';
+import { HcPolygonComponent } from './children/series/hc-polygon.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HcPointComponent } from './children/hc-point.component';
     HcBarComponent,
     HcColumnComponent,
     HcPieComponent,
+    HcPolygonComponent,
     HcSplineComponent,
     HcBubbleComponent,
     HcScatterComponent,
@@ -67,6 +69,7 @@ import { HcPointComponent } from './children/hc-point.component';
     HcBarComponent,
     HcColumnComponent,
     HcPieComponent,
+    HcPolygonComponent,
     HcSplineComponent,
     HcBubbleComponent,
     HcScatterComponent,
