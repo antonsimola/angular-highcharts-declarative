@@ -198,7 +198,11 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
       this.changesSub.unsubscribe();
     }
     if (this._rawSeries) {
-      this._rawSeries.remove();
+      if (typeof (this._rawSeries.remove) === 'function') {
+        this._rawSeries.remove();
+      } else {
+        this.chartService.removeSeries(this.index);
+      }
       this._rawSeries = null;
     }
 
