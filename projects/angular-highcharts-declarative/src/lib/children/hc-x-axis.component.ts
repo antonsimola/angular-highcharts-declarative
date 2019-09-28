@@ -194,6 +194,10 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   visible?: boolean;
   @Input()
   zoomEnabled?: boolean;
+  @Input()
+  width: any;
+  @Input()
+  height: any;
 
   @Input()
   index: number;

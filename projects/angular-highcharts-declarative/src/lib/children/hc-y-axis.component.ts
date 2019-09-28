@@ -9,7 +9,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { HcChartService } from '../hc-chart.service';
+import {HcChartService} from '../hc-chart.service';
 import {
   AxisPointBreakEventObject,
   AxisSetExtremesEventObject,
@@ -36,9 +36,9 @@ import {
   YAxisStackLabelsOptions,
   YAxisTitleOptions
 } from 'highcharts';
-import { BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { registerEvents } from '../helpers';
+import {BehaviorSubject} from 'rxjs';
+import {first} from 'rxjs/operators';
+import {registerEvents} from '../helpers';
 
 @Component({
   selector: 'hc-y-axis',
@@ -220,6 +220,8 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   visible?: boolean;
   @Input()
   index: number;
+  @Input()
+  width: any;
 
   @Output() afterBreaks = new EventEmitter<any>();
   @Output() afterSetExtremes = new EventEmitter<AxisSetExtremesEventObject>();
@@ -230,16 +232,18 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   protected initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
 
-  constructor(private chartService: HcChartService, private zone: NgZone) {}
+  constructor(private chartService: HcChartService, private zone: NgZone) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   init(index: number) {
     if (this.initializedSub.getValue()) {
       return;
     }
     this.index = this.index || index;
-    this.update({ ...this.getState(), ...{ events: registerEvents(this, this.zone, 'axis') } });
+    this.update({...this.getState(), ...{events: registerEvents(this, this.zone, 'axis')}});
     this.initializedSub.next(true);
     this.initializedSub.complete();
   }
@@ -259,7 +263,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   }
 
   private getState() {
-    const state = { ...this };
+    const state = {...this};
     delete state.chartService;
     delete state.initialized$;
     delete state.initializedSub;

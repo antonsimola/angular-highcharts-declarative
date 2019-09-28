@@ -12,6 +12,12 @@
   </hc-chart>
 </div>
 
+<hc-chart [width]="size+150" [height]="'100%'" zoomType="xy">
+  <hc-x-axis [width]="size" [height]="size" [min]="-r" [max]="r"></hc-x-axis>
+  <hc-y-axis [width]="size" [height]="size" [min]="-r" [max]="r"></hc-y-axis>
+  <hc-polygon [data]="circleData"></hc-polygon>
+</hc-chart>
+
 <mat-form-field>
   <input
     placeholder="Curve factor"
@@ -21,3 +27,4 @@
     (ngModelChange)="inputChange()"
   />
 </mat-form-field>
+
