@@ -21,7 +21,7 @@ export class ExtraPropsComponent implements OnInit {
 
   r = 10;
   size = 400;
-  private circleData: any[];
+  circleData: any[];
 
   constructor() {
   }
