@@ -60,12 +60,12 @@ export class HcChartService {
     }
   }
 
-  addSeries(param: SeriesOptions, cb: () => void = null) {
+  addSeries(param: SeriesOptions, cb: (Series) => void = null) {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
-        c.addSeries(param as any);
+        const series = c.addSeries(param as any);
         if (cb) {
-          cb();
+          cb(series);
         }
       });
     });

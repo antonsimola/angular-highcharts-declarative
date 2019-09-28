@@ -1,16 +1,22 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnInit } from '@angular/core';
 import { HcSeriesComponent } from '../hc-series.component';
 import {
   AnimationOptionsObject,
-  ColorString, CursorValue, DashStyleValue,
+  ColorString,
+  CursorValue,
+  DashStyleValue,
   DataLabelsOptionsObject,
-  GradientColorObject, OptionsBoostBlendingValue,
+  GradientColorObject,
+  OptionsBoostBlendingValue,
   OptionsFindNearestPointByValue,
   OptionsGapUnitValue,
   OptionsPointIntervalUnitValue,
   OptionsStackingValue,
   OptionsStepValue,
-  PatternObject, PlotPolygonAccessibilityOptions, PlotPolygonAnimationOptions, PlotPolygonConnectorsOptions,
+  PatternObject,
+  PlotPolygonAccessibilityOptions,
+  PlotPolygonAnimationOptions,
+  PlotPolygonConnectorsOptions,
   PlotPolygonDataGroupingOptions,
   PlotPolygonDragDropOptions,
   PlotPolygonEventsOptions,
@@ -23,8 +29,7 @@ import {
   PlotPolygonTooltipOptions,
   PlotPolygonZonesOptions,
   PlotSeriesOptions,
-  SeriesLinecapValue,
-  SeriesPolygonDataOptions,
+  SeriesLinecapValue, SeriesPolygonDataOptions,
   SeriesPolygonOptions
 } from 'highcharts';
 import { HcChartService } from '../../hc-chart.service';
@@ -34,19 +39,21 @@ import { HcChartService } from '../../hc-chart.service';
   template: `
       <ng-content select="hc-tooltip"></ng-content>
       <ng-content select="hc-point"></ng-content>
-  `,  styles: [],
+  `,
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: HcSeriesComponent, useExisting: HcPolygonComponent }]
-
 })
 export class HcPolygonComponent extends HcSeriesComponent implements OnInit, SeriesPolygonOptions {
+
   @Input()
-  accessibility?: (object|PlotPolygonAccessibilityOptions);
+  accessibility?: (object | PlotPolygonAccessibilityOptions);
   @Input()
   allAreas?: boolean;
   @Input()
   allowPointSelect?: boolean;
   @Input()
-  animation?: (boolean|AnimationOptionsObject|PlotPolygonAnimationOptions);
+  animation?: (boolean | AnimationOptionsObject | PlotPolygonAnimationOptions);
   @Input()
   animationLimit?: number;
   @Input()
@@ -54,7 +61,7 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   boostThreshold?: number;
   @Input()
-  borderColor?: (ColorString|GradientColorObject|PatternObject);
+  borderColor?: (ColorString | GradientColorObject | PatternObject);
   @Input()
   borderWidth?: number;
   @Input()
@@ -62,7 +69,7 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   clip?: boolean;
   @Input()
-  color?: (ColorString|GradientColorObject|PatternObject);
+  color?: (ColorString | GradientColorObject | PatternObject);
   @Input()
   colorAxis?: boolean;
   @Input()
@@ -70,7 +77,7 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   compare?: string;
   @Input()
-  compareBase?: (0|100);
+  compareBase?: (0 | 100);
   @Input()
   compareStart?: boolean;
   @Input()
@@ -82,13 +89,13 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   cropThreshold?: number;
   @Input()
-  cursor?: (string|CursorValue);
+  cursor?: (string | CursorValue);
   @Input()
   dashStyle?: DashStyleValue;
   @Input()
   dataGrouping?: PlotPolygonDataGroupingOptions;
   @Input()
-  dataLabels?: (DataLabelsOptionsObject|Array<DataLabelsOptionsObject>);
+  dataLabels?: (DataLabelsOptionsObject | Array<DataLabelsOptionsObject>);
   @Input()
   description?: string;
   @Input()
@@ -108,7 +115,7 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   includeInDataExport?: boolean;
   @Input()
-  joinBy?: (string|Array<string>);
+  joinBy?: (string | Array<string>);
   @Input()
   keys?: Array<string>;
   @Input()
@@ -128,13 +135,13 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   navigatorOptions?: PlotSeriesOptions;
   @Input()
-  negativeColor?: (ColorString|GradientColorObject|PatternObject);
+  negativeColor?: (ColorString | GradientColorObject | PatternObject);
   @Input()
   opacity?: number;
   @Input()
   point?: PlotPolygonPointOptions;
   @Input()
-  pointDescriptionFormatter?: () => string;
+  pointDescriptionFormatter?: () => void;
   @Input()
   pointInterval?: number;
   @Input()
@@ -174,15 +181,18 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
   @Input()
   zones?: Array<PlotPolygonZonesOptions>;
 
+
   @Input()
-  data?: Array<number | [(number | string), (number | null)] | null | SeriesPolygonDataOptions>;
+  data?: Array<(number | [(number | string), (number | null)] | null | SeriesPolygonDataOptions)>;
   @Input()
   dataParser?: undefined;
   @Input()
   dataURL?: undefined;
-  stack: undefined = null;
-
+  @Input()
+  stack?: undefined;
+  @Input()
   type: 'polygon' = 'polygon';
+
 
   constructor(chartService: HcChartService, zone: NgZone) {
     super(chartService, zone);

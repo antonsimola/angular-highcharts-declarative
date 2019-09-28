@@ -185,6 +185,9 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @Output()
   chartReady = new EventEmitter<Chart>();
 
+  @Output()
+  chartInstance = new EventEmitter<Chart>();
+
   // @Output()
   // childrenReady = new EventEmitter<Chart>();
 
@@ -210,23 +213,25 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     private zone: NgZone,
     private chartService: HcChartService,
     @Optional() @Inject(HC_CHART_DEFAULTS) private chartDefaults: ChartOptions
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     const eventsToListen = registerEvents(this, this.zone, 'chart');
-    if (this.chartDefaults) {
-      for (const [key, value] of Object.entries(this.chartDefaults)) {
-        if (this[key] === null) {
-          // TODO this probably error prone...
-          this[key] = value;
-        }
+    const defaults = this.chartDefaults || {};
+    for (const [key, value] of Object.entries(defaults)) {
+      if (this[key] === null) {
+        // TODO this probably error prone...
+        this[key] = value;
       }
     }
     this.chartService.chart$.subscribe(c => {
       this.initializedSubject.next(true);
       this.chartReady.emit(c);
+      this.chartInstance.emit(c);
     });
     this.chartService.initChart(this.chartDiv, {
+      ...defaults,
       chart: { ...this.getInitialState(), ...{ events: eventsToListen } },
       ...this.extra,
       tooltip: {} // hack to get tooltip to show, have to investigate better option
@@ -269,6 +274,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
 
   ngOnDestroy() {
     this.subs.forEach(s => s.unsubscribe());
+    this.chartInstance.emit(null);
     this.chartService.destroyChart();
   }
 
@@ -303,6 +309,10 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     for (const [key, value] of Object.entries(simpleChanges)) {
       changes[key] = value.currentValue;
     }
-    this.chartService.update({ chart: changes });
+    let extra: any = {};
+    if (simpleChanges.extra) {
+      extra = simpleChanges.extra.currentValue;
+    }
+    this.chartService.update({ chart: changes, ...extra });
   }
 }

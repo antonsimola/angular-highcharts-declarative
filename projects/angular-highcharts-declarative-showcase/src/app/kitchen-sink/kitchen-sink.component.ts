@@ -44,6 +44,7 @@ export class KitchenSinkComponent implements DoCheck {
   legendEnabled = true;
   tooltipEnabled = true;
   valueSuffix = 'm3';
+  extra = { credits: { enabled: true } };
 
   ngDoCheck() {
     console.log('ngDoCheck');
@@ -51,6 +52,12 @@ export class KitchenSinkComponent implements DoCheck {
 
   asyncTest() {
     this.asyncTrigger.next(1);
+  }
+
+  toggleCredits() {
+    const copy = { ...this.extra };
+    copy.credits.enabled = !copy.credits.enabled;
+    this.extra = copy;
   }
 
   onAdd() {

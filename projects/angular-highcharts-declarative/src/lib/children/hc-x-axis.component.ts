@@ -16,15 +16,15 @@ import {
   AxisTickPositionerCallbackFunction,
   AxisTypeValue,
   ColorString,
-  DashStyleValue,
+  DashStyleValue, GradientColorObject,
   OptionsMinorTickPositionValue,
   OptionsTickmarkPlacementValue,
-  OptionsTickPositionValue,
+  OptionsTickPositionValue, PatternObject,
   XAxisAccessibilityOptions,
   XAxisBreaksOptions,
   XAxisCrosshairOptions,
   XAxisCurrentDateIndicatorOptions,
-  XAxisDateTimeLabelFormatsOptions,
+  XAxisDateTimeLabelFormatsOptions, XAxisEventsOptions,
   XAxisGridOptions,
   XAxisLabelsOptions,
   XAxisOptions,
@@ -45,33 +45,37 @@ import { registerEvents } from '../helpers';
 })
 export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOptions {
   @Input()
-  accessibility?: object | XAxisAccessibilityOptions;
+  accessibility?: (object|XAxisAccessibilityOptions);
   @Input()
   alignTicks?: boolean;
   @Input()
   allowDecimals?: boolean;
   @Input()
-  alternateGridColor?: ColorString;
+  alternateGridColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
   breaks?: Array<XAxisBreaksOptions>;
+  @Input()
+  categories?: Array<string>;
   @Input()
   ceiling?: number;
   @Input()
   className?: string;
   @Input()
-  crosshair?: boolean | XAxisCrosshairOptions;
+  crosshair?: (boolean|XAxisCrosshairOptions);
   @Input()
-  currentDateIndicator?: boolean | XAxisCurrentDateIndicatorOptions;
+  currentDateIndicator?: (boolean|XAxisCurrentDateIndicatorOptions);
   @Input()
   dateTimeLabelFormats?: XAxisDateTimeLabelFormatsOptions;
   @Input()
   endOnTick?: boolean;
   @Input()
+  events?: XAxisEventsOptions;
+  @Input()
   floor?: number;
   @Input()
   grid?: XAxisGridOptions;
   @Input()
-  gridLineColor?: ColorString;
+  gridLineColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
   gridLineDashStyle?: DashStyleValue;
   @Input()
@@ -83,7 +87,7 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   labels?: XAxisLabelsOptions;
   @Input()
-  lineColor?: ColorString;
+  lineColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
   lineWidth?: number;
   @Input()
@@ -91,25 +95,23 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   margin?: number;
   @Input()
-  max?: number | null;
+  max?: (number|null);
   @Input()
   maxPadding?: number;
   @Input()
   maxRange?: number;
   @Input()
-  maxZoom?: number;
+  min?: (number|null);
   @Input()
-  min?: number | null;
-  @Input()
-  minorGridLineColor?: ColorString;
+  minorGridLineColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
   minorGridLineDashStyle?: DashStyleValue;
   @Input()
   minorGridLineWidth?: number;
   @Input()
-  minorTickColor?: ColorString;
+  minorTickColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
-  minorTickInterval?: number | string | null;
+  minorTickInterval?: (number|string|null);
   @Input()
   minorTickLength?: number;
   @Input()
@@ -163,7 +165,7 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   tickAmount?: number;
   @Input()
-  tickColor?: ColorString;
+  tickColor?: (ColorString|GradientColorObject|PatternObject);
   @Input()
   tickInterval?: number;
   @Input()
@@ -179,7 +181,7 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   tickPositions?: Array<number>;
   @Input()
-  tickWidth?: number | undefined;
+  tickWidth?: (number|undefined);
   @Input()
   title?: XAxisTitleOptions;
   @Input()
@@ -187,11 +189,15 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   uniqueNames?: boolean;
   @Input()
-  units?: Array<[string, (Array<number> | null)]>;
+  units?: Array<[string, (Array<number>|null)]>;
   @Input()
   visible?: boolean;
   @Input()
-  index = 0;
+  zoomEnabled?: boolean;
+
+  @Input()
+  index: number;
+
 
   @Output() afterBreaks = new EventEmitter<any>();
   @Output() afterSetExtremes = new EventEmitter<AxisSetExtremesEventObject>();

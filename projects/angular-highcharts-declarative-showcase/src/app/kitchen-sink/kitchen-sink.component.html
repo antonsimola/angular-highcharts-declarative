@@ -1,5 +1,5 @@
 <!--- the main thing: Chart configuration -->
-<hc-chart *ngIf="visible" [zoomType]="zoomType" type="column">
+<hc-chart *ngIf="visible" [zoomType]="zoomType" type="column" [extra]="extra">
   <hc-title [text]="title | uppercase"></hc-title>
   <hc-subtitle [text]="title | lowercase" verticalAlign="bottom"></hc-subtitle>
   <hc-legend [enabled]="legendEnabled" [title]="{ text: 'man, you are a legend' }"></hc-legend>
@@ -23,6 +23,7 @@
 
 <!-- Reactivity demo inputs -->
 <button mat-raised-button (click)="asyncTest()">Async test</button>
+<button mat-raised-button (click)="toggleCredits()">Toggle Credits</button>
 <div fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
   <mat-checkbox [(ngModel)]="visible">Toggle chart on/off</mat-checkbox>
   <mat-form-field>

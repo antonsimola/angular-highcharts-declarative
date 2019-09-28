@@ -22,7 +22,7 @@ export const registerEvents = (target: any, zone: NgZone, eventCategory: string)
     }
     if (target[emitter].observers.length > 0) {
       // only register to event that the user is interested in
-      console.log(eventCategory, event, target[emitter].observers.length);
+      // console.log(eventCategory, event, target[emitter].observers.length);
       eventsToListen[event] = (...args) => zone.run(() => target[emitter].emit(args.length > 1 ? args[1] : args[0]));
     }
   });
