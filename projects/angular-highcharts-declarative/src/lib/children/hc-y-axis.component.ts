@@ -252,6 +252,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
     if (!this.initializedSub.getValue()) {
       return;
     }
+    this.update(this.getState());
   }
 
   ngOnDestroy() {
