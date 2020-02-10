@@ -1,8 +1,9 @@
-import { Component, DoCheck } from '@angular/core';
-import { BehaviorSubject, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { AxisTypeValue, OptionsZoomTypeValue } from 'highcharts';
-import { HC_CHART_TYPES } from '../../../../angular-highcharts-declarative/src/lib/highchart-enums';
+import {Component, DoCheck, ViewChild} from '@angular/core';
+import {BehaviorSubject, timer} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
+import {AxisTypeValue, OptionsZoomTypeValue} from 'highcharts';
+import {HC_CHART_TYPES} from '../../../../angular-highcharts-declarative/src/lib/highchart-enums';
+import {HcChartComponent} from '../../../../angular-highcharts-declarative/src/lib/hc-chart.component';
 
 @Component({
   selector: 'app-kitchen-sink',
@@ -20,6 +21,8 @@ export class KitchenSinkComponent implements DoCheck {
   get dataPointsCount() {
     return this._dataPointsCount;
   }
+
+  @ViewChild('chart', {static: false}) chartComponent: HcChartComponent;
 
   title = 'Angular Declarative + Reactive Showcase';
   data = this.getData(this._dataPointsCount);
@@ -44,7 +47,8 @@ export class KitchenSinkComponent implements DoCheck {
   legendEnabled = true;
   tooltipEnabled = true;
   valueSuffix = 'm3';
-  extra = { credits: { enabled: true } };
+  extra = {credits: {enabled: true}};
+  autoRedraw = true;
 
   ngDoCheck() {
     console.log('ngDoCheck');
@@ -55,7 +59,7 @@ export class KitchenSinkComponent implements DoCheck {
   }
 
   toggleCredits() {
-    const copy = { ...this.extra };
+    const copy = {...this.extra};
     copy.credits.enabled = !copy.credits.enabled;
     this.extra = copy;
   }
@@ -71,7 +75,7 @@ export class KitchenSinkComponent implements DoCheck {
   }
 
   getData(n) {
-    return Array.from({ length: n }, () => Math.floor(Math.random() * 40));
+    return Array.from({length: n}, () => Math.floor(Math.random() * 40));
   }
 
   addSeries() {
@@ -88,5 +92,9 @@ export class KitchenSinkComponent implements DoCheck {
 
   removeXAxis() {
     this.dXAxes = this.dXAxes.slice(0, -1);
+  }
+
+  redraw() {
+    this.chartComponent.redrawChart();
   }
 }

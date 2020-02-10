@@ -168,6 +168,8 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   zoomType?: OptionsZoomTypeValue;
   @Input()
   extra: any;
+  @Input()
+  autoRedraw = true;
 
   @Output() clickChart = new EventEmitter<ChartClickEventObject>();
   @Output() addSeries = new EventEmitter<ChartAddSeriesEventObject>();
@@ -225,6 +227,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
         this[key] = value;
       }
     }
+    this.chartService.autoRedraw = this.autoRedraw;
     this.chartService.chart$.subscribe(c => {
       this.initializedSubject.next(true);
       this.chartReady.emit(c);
@@ -301,6 +304,10 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     });
   }
 
+  redrawChart() {
+    this.chartService.redraw();
+  }
+
   ngOnChanges(simpleChanges: SimpleChanges) {
     if (!this.initializedSubject.getValue()) {
       return;
@@ -313,6 +320,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
     if (simpleChanges.extra) {
       extra = simpleChanges.extra.currentValue;
     }
+    this.chartService.autoRedraw = this.autoRedraw;
     this.chartService.update({ chart: changes, ...extra });
   }
 }

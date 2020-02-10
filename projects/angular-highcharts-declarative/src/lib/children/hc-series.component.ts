@@ -92,7 +92,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   initialized$ = this.initializedSub.pipe(first(v => v));
   private dataSub: Subscription;
   private changesSub: Subscription;
-  private _rawSeries: Series;
+  private rawSeries: Series;
 
   constructor(private chartService: HcChartService, private zone: NgZone) {
   }
@@ -127,7 +127,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
     this.chartService.addSeries(
       { ...this.getState(), ...{ events: registerEvents(this, this.zone, 'series') } },
       (series: Series) => {
-        this._rawSeries = series;
+        this.rawSeries = series;
         this.changesSub = this.tooltips.changes.subscribe(v => this.tooltips.forEach(t => t.setSeries(this.index)));
         this.tooltips.forEach(t => t.setSeries(this.index));
         this.initializedSub.next(true);
@@ -146,7 +146,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
     delete state.dataSub;
     delete state.zone;
     delete state.hcPoint;
-    delete state._rawSeries;
+    delete state.rawSeries;
     state = { ...state, ...state.extra };
     for (const [key, value] of Object.entries(state)) {
       if (value === null) {
@@ -157,17 +157,17 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   }
 
   addPoint(value: any, shift = this.dataStreamShift) {
-    this._rawSeries.addPoint(value, true, shift);
+    this.rawSeries.addPoint(value, this.chartService.autoRedraw, shift);
     // this.chartService.addPoint(this.index, value, shift);
   }
 
   update(props: Partial<SeriesOptions>) {
-    this._rawSeries.update(props as any);
+    this.rawSeries.update(props as any, this.chartService.autoRedraw);
     // this.chartService.updateSeries(this.index, props);
   }
 
   updateSeriesData(data: any) {
-    this._rawSeries.setData(data);
+    this.rawSeries.setData(data, this.chartService.autoRedraw);
     // this.chartService.updateSeriesData(this.index, changes.data.currentValue);
   }
 
@@ -197,13 +197,13 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
     if (this.changesSub) {
       this.changesSub.unsubscribe();
     }
-    if (this._rawSeries) {
-      if (typeof (this._rawSeries.remove) === 'function') {
-        this._rawSeries.remove();
+    if (this.rawSeries) {
+      if (typeof (this.rawSeries.remove) === 'function') {
+        this.rawSeries.remove(this.chartService.autoRedraw);
       } else {
         this.chartService.removeSeries(this.index);
       }
-      this._rawSeries = null;
+      this.rawSeries = null;
     }
 
     // this.chartService.removeSeries(this.index);

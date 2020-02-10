@@ -1,14 +1,22 @@
-import { ElementRef, Injectable, NgZone } from '@angular/core';
-import { Chart, Options, SeriesOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import { BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
+import {ElementRef, Injectable, NgZone} from '@angular/core';
+import {Chart, Options, SeriesOptions, XAxisOptions, YAxisOptions} from 'highcharts';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 @Injectable() // provide per chart component
 export class HcChartService {
   private chartSubject = new BehaviorSubject<Chart>(null);
-  chart$ = this.chartSubject.asObservable().pipe(first(c => c != null));
+  chart$: Observable<Chart> = this.chartSubject.asObservable().pipe(first(c => c != null));
+  autoRedraw = true;
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone) {
+  }
+
+  redraw() {
+    this.chart$.subscribe(c => {
+      this.zone.runOutsideAngular(() => c.redraw());
+    });
+  }
 
   wrapOutsideZone(cb: (chart: Chart) => void) {
     this.chart$.subscribe(c => {
@@ -30,7 +38,7 @@ export class HcChartService {
     // this.wrapOutsideZone(c => c.update(options));
     this.chart$.subscribe(chart => {
       this.zone.runOutsideAngular(() => {
-        chart.update(options);
+        chart.update(options, this.autoRedraw);
       });
     });
   }
@@ -38,7 +46,7 @@ export class HcChartService {
   updateSeriesData(index: number, data: any[]) {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
-        c.series[index].setData(data as any);
+        c.series[index].setData(data as any, this.autoRedraw);
       });
     });
   }
@@ -46,7 +54,7 @@ export class HcChartService {
   updateSeries(index: number, options: Partial<SeriesOptions>) {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
-        c.series[index].update(options as any);
+        c.series[index].update(options as any, this.autoRedraw);
       });
     });
   }
@@ -63,7 +71,7 @@ export class HcChartService {
   addSeries(param: SeriesOptions, cb: (Series) => void = null) {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
-        const series = c.addSeries(param as any);
+        const series = c.addSeries(param as any, this.autoRedraw);
         if (cb) {
           cb(series);
         }
@@ -75,7 +83,7 @@ export class HcChartService {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         if (c.series[index]) {
-          c.series[index].remove();
+          c.series[index].remove(this.autoRedraw);
         }
       });
     });
@@ -87,7 +95,7 @@ export class HcChartService {
         if (!c.xAxis[index]) {
           c.addAxis(xAxisOptions, true);
         } else {
-          c.xAxis[index].update(xAxisOptions);
+          c.xAxis[index].update(xAxisOptions, this.autoRedraw);
         }
       });
     });
@@ -99,7 +107,7 @@ export class HcChartService {
         if (!c.yAxis[index]) {
           c.addAxis(yAxisOptions, false);
         } else {
-          c.yAxis[index].update(yAxisOptions);
+          c.yAxis[index].update(yAxisOptions, this.autoRedraw);
         }
       });
     });
@@ -109,7 +117,7 @@ export class HcChartService {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         if (c.xAxis[index]) {
-          c.xAxis[index].remove();
+          c.xAxis[index].remove(this.autoRedraw);
         }
       });
     });
@@ -119,7 +127,7 @@ export class HcChartService {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         if (c.yAxis[index]) {
-          c.yAxis[index].remove();
+          c.yAxis[index].remove(this.autoRedraw);
         }
       });
     });
@@ -129,7 +137,7 @@ export class HcChartService {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => {
         if (c.series[index]) {
-          c.series[index].addPoint(v, true, shift);
+          c.series[index].addPoint(v, this.autoRedraw, shift);
         }
       });
     });
