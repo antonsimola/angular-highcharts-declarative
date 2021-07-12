@@ -80,7 +80,7 @@ export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesP
   @Input()
   dataGrouping?: PlotPieDataGroupingOptions;
   @Input()
-  dataLabels?: SeriesPieDataLabelsOptionsObject | Array<SeriesPieDataLabelsOptionsObject>;
+  dataLabels?: SeriesPieDataLabelsOptionsObject;
   @Input()
   depth?: number;
   @Input()
