@@ -28,7 +28,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { changesToFlat, registerEvents } from '../helpers';
 import { HcTooltipComponent } from './hc-tooltip.component';
-import { SeriesLegendItemClickEventObject } from 'highcharts/highcharts.src';
+import { SeriesLegendItemClickEventObject } from 'highcharts/highcharts';
 import { HcPointComponent } from './hc-point.component';
 
 @Component({

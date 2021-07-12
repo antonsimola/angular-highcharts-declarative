@@ -6,7 +6,7 @@ import {
   PointInteractionEventObject,
   PointUpdateEventObject
 } from 'highcharts';
-import {PointDropEventObject} from 'highcharts/highcharts.src';
+import {PointDropEventObject} from 'highcharts/highcharts';
 
 @Component({
   selector: 'hc-point',
