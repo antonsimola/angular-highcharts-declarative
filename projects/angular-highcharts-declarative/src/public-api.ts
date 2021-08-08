@@ -2,6 +2,9 @@
  * Public API Surface of angular-highcharts-declarative
  */
 export * from './lib/hc-chart.component';
+export * from './lib/children/hc-subtitle.component';
+export * from './lib/children/hc-title.component';
+export * from './lib/children/hc-point.component';
 export * from './lib/children/hc-x-axis.component';
 export * from './lib/children/hc-y-axis.component';
 export * from './lib/children/hc-series.component';
