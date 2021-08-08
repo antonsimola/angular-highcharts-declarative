@@ -11,6 +11,9 @@
     "highcharts": "^7.1.3",
     "rxjs": "^6.4.0"
   },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "devDependencies": {
   }
 }
