@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 .material-highcharts {
   $theme: $material-theme-for-highcharts;
@@ -9,25 +9,25 @@
   $mat-bg: map-get($theme, background);
   $mat-fg: map-get($theme, foreground);
   $level: 400 !default;
-  $colors: mat-color($primary, $level) mat-color($mat-gray, 700) mat-color($mat-teal, $level) mat-color($mat-purple, $level) mat-color($mat-amber, $level) mat-color($mat-lime, $level) mat-color($mat-indigo, $level) mat-color($mat-blue, $level) mat-color($mat-green, $level) mat-color($mat-yellow, $level) mat-color($mat-brown, $level) !default;
+  $colors: mat.get-color-from-palette($primary, $level) mat.get-color-from-palette(mat.$gray-palette, 700) mat.get-color-from-palette(mat.$teal-palette, $level) mat.get-color-from-palette(mat.$purple-palette, $level) mat.get-color-from-palette(mat.$amber-palette, $level) mat.get-color-from-palette(mat.$lime-palette, $level) mat.get-color-from-palette(mat.$indigo-palette, $level) mat.get-color-from-palette(mat.$blue-palette, $level) mat.get-color-from-palette(mat.$green-palette, $level) mat.get-color-from-palette(mat.$yellow-palette, $level) mat.get-color-from-palette(mat.$brown-palette, $level) !default;
   // Chart background, point stroke for markers and columns etc
-  $background-color: mat-color($mat-bg, card);
+  $background-color: mat.get-color-from-palette($mat-bg, card);
   // Neutral colors, grayscale by default. The default colors are defined by mixing the background-color with neutral, with a weight corresponding to the number in the name.
-  $neutral-color-100: mat-color($mat-fg, text) !default; // Strong text.
-  $neutral-color-80: mat-color($mat-fg, text) !default; // Main text and some strokes.
-  $neutral-color-60: mat-color($mat-fg, secondary-text) !default; // Axis labels, axis title, connector fallback.
-  $neutral-color-40: mat-color($mat-fg, disabled-text) !default; // Credits text, export menu stroke.
-  $neutral-color-20: mat-color($mat-fg, disabled-text) !default; // Disabled texts, button strokes, crosshair etc.
-  $neutral-color-10: mat-color($mat-fg, divider) !default; // Grid lines etc.
-  $neutral-color-5: mat-color($mat-fg, divider) !default; // Minor grid lines etc.
-  $neutral-color-3: mat-color($mat-fg, text) !default; // Tooltip background, button fills, map null points.
+  $neutral-color-100: mat.get-color-from-palette($mat-fg, text) !default; // Strong text.
+  $neutral-color-80: mat.get-color-from-palette($mat-fg, text) !default; // Main text and some strokes.
+  $neutral-color-60: mat.get-color-from-palette($mat-fg, secondary-text) !default; // Axis labels, axis title, connector fallback.
+  $neutral-color-40: mat.get-color-from-palette($mat-fg, disabled-text) !default; // Credits text, export menu stroke.
+  $neutral-color-20: mat.get-color-from-palette($mat-fg, disabled-text) !default; // Disabled texts, button strokes, crosshair etc.
+  $neutral-color-10: mat.get-color-from-palette($mat-fg, divider) !default; // Grid lines etc.
+  $neutral-color-5: mat.get-color-from-palette($mat-fg, divider) !default; // Minor grid lines etc.
+  $neutral-color-3: mat.get-color-from-palette($mat-fg, text) !default; // Tooltip background, button fills, map null points.
 
   // Colored, shades of blue by default
-  $highlight-color-100: mat-color($primary, 500) !default; // Drilldown clickable labels, color axis max color.
-  $highlight-color-80: mat-color($primary, 400) !default; // Selection marker, menu hover, button hover, chart border, navigator series.
-  $highlight-color-60: mat-color($primary, 300) !default; // Navigator mask fill.
-  $highlight-color-20: mat-color($primary, 200) !default; // Ticks and axis line.
-  $highlight-color-10: mat-color($primary, 50) !default; // Pressed button, color axis min color.
+  $highlight-color-100: mat.get-color-from-palette($primary, 500) !default; // Drilldown clickable labels, color axis max color.
+  $highlight-color-80: mat.get-color-from-palette($primary, 400) !default; // Selection marker, menu hover, button hover, chart border, navigator series.
+  $highlight-color-60: mat.get-color-from-palette($primary, 300) !default; // Navigator mask fill.
+  $highlight-color-20: mat.get-color-from-palette($primary, 200) !default; // Ticks and axis line.
+  $highlight-color-10: mat.get-color-from-palette($primary, 50) !default; // Pressed button, color axis min color.
 
   // Fonts
   $font-family: Roboto, 'Helvetica Neue', sans-serif !default;
@@ -38,7 +38,7 @@
 
   // Tooltip
   $tooltip-border: 0px !default;
-  $tooltip-background: mat-color($mat-bg, dialog) !default;
+  $tooltip-background: mat.get-color-from-palette($mat-bg, dialog) !default;
 
   // Axes
   $xaxis-grid-line: 0px !default;
@@ -54,7 +54,7 @@
   // Buttons
   $context-button-background: $background-color !default;
 
-  $highcharts-button-background: mat-color($mat-bg, card) !default;
+  $highcharts-button-background: mat.get-color-from-palette($mat-bg, card) !default;
   $highcharts-button-border: $neutral-color-20 !default;
   $highcharts-button-text: $neutral-color-80 !default;
 
