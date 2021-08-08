@@ -26,7 +26,7 @@ export class CodeComponent implements OnInit, AfterViewChecked {
     // tslint:disable-next-line:max-line-length
     'https://raw.githubusercontent.com/antonsimola/angular-highcharts-declarative/master/projects/angular-highcharts-declarative-showcase/src/app/';
 
-  @ViewChild('code', { static: false }) codeElement: ElementRef;
+  @ViewChild('code') codeElement: ElementRef;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class CodeComponent implements OnInit, AfterViewChecked {
           this.fileContents = { ...this.fileContents, ...{ [file]: content } };
         },
 
-        err => {
+        () => {
           this.fileContents = { ...this.fileContents, ...{ [file]: 'No code' } };
         }
       );

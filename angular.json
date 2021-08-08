@@ -15,7 +15,12 @@
             "tsConfig": "projects/angular-highcharts-declarative/tsconfig.lib.json",
             "project": "projects/angular-highcharts-declarative/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-highcharts-declarative/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -53,7 +58,7 @@
             "main": "projects/angular-highcharts-declarative-showcase/src/main.ts",
             "polyfills": "projects/angular-highcharts-declarative-showcase/src/polyfills.ts",
             "tsConfig": "projects/angular-highcharts-declarative-showcase/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/angular-highcharts-declarative-showcase/src/favicon.ico",
               "projects/angular-highcharts-declarative-showcase/src/assets"
@@ -76,7 +81,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -85,6 +89,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }

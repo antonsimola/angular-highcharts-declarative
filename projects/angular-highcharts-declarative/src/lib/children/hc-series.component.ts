@@ -86,7 +86,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
   @Output() public showSeries = new EventEmitter<Event>();
 
   @ContentChildren(HcTooltipComponent) tooltips: QueryList<HcTooltipComponent>;
-  @ContentChild(HcPointComponent, { static: false }) hcPoint: HcPointComponent;
+  @ContentChild(HcPointComponent) hcPoint: HcPointComponent;
 
   private initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
@@ -128,7 +128,7 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
       { ...this.getState(), ...{ events: registerEvents(this, this.zone, 'series') } },
       (series: Series) => {
         this.rawSeries = series;
-        this.changesSub = this.tooltips.changes.subscribe(v => this.tooltips.forEach(t => t.setSeries(this.index)));
+        this.changesSub = this.tooltips.changes.subscribe(() => this.tooltips.forEach(t => t.setSeries(this.index)));
         this.tooltips.forEach(t => t.setSeries(this.index));
         this.initializedSub.next(true);
         this.initializedSub.complete();

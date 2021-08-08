@@ -1,8 +1,10 @@
-import { AfterContentChecked, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentChecked, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, Directive } from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import { changesToFlat } from '../helpers';
 import { AlignValue, CSSObject, SubtitleOptions, VerticalAlignValue } from 'highcharts';
 
+@Directive()
+// tslint:disable-next-line:directive-class-suffix
 export abstract class AbstractTitleComponent implements OnInit, OnChanges, AfterContentChecked {
   abstract key: string;
   @Input()
@@ -24,7 +26,7 @@ export abstract class AbstractTitleComponent implements OnInit, OnChanges, After
   @Input()
   y?: number;
 
-  @ViewChild('text', { static: false }) childContent: ElementRef;
+  @ViewChild('text') childContent: ElementRef;
 
   constructor(private chartService: HcChartService) {}
 

@@ -22,7 +22,7 @@ export class KitchenSinkComponent implements DoCheck {
     return this._dataPointsCount;
   }
 
-  @ViewChild('chart', {static: false}) chartComponent: HcChartComponent;
+  @ViewChild('chart') chartComponent: HcChartComponent;
 
   title = 'Angular Declarative + Reactive Showcase';
   data = this.getData(this._dataPointsCount);
