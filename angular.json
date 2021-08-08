@@ -58,7 +58,6 @@
             "main": "projects/angular-highcharts-declarative-showcase/src/main.ts",
             "polyfills": "projects/angular-highcharts-declarative-showcase/src/polyfills.ts",
             "tsConfig": "projects/angular-highcharts-declarative-showcase/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/angular-highcharts-declarative-showcase/src/favicon.ico",
               "projects/angular-highcharts-declarative-showcase/src/assets"
@@ -66,7 +65,13 @@
             "styles": [
               "projects/angular-highcharts-declarative-showcase/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -95,7 +100,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
