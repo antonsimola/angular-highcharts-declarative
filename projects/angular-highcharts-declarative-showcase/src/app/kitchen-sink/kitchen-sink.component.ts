@@ -51,7 +51,7 @@ export class KitchenSinkComponent implements DoCheck {
   autoRedraw = true;
 
   ngDoCheck() {
-    console.log('ngDoCheck');
+    // console.log('ngDoCheck');
   }
 
   asyncTest() {

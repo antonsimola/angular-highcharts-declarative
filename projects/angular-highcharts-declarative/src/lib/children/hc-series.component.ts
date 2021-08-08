@@ -34,8 +34,8 @@ import { HcPointComponent } from './hc-point.component';
 @Component({
   selector: 'hc-series',
   template: `
-      <ng-content select="hc-tooltip"></ng-content>
-      <ng-content select="hc-point"></ng-content>
+    <ng-content select='hc-tooltip'></ng-content>
+    <ng-content select='hc-point'></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -158,17 +158,14 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
 
   addPoint(value: any, shift = this.dataStreamShift) {
     this.rawSeries.addPoint(value, this.chartService.autoRedraw, shift);
-    // this.chartService.addPoint(this.index, value, shift);
   }
 
   update(props: Partial<SeriesOptions>) {
     this.rawSeries.update(props as any, this.chartService.autoRedraw);
-    // this.chartService.updateSeries(this.index, props);
   }
 
   updateSeriesData(data: any) {
     this.rawSeries.setData(data, this.chartService.autoRedraw);
-    // this.chartService.updateSeriesData(this.index, changes.data.currentValue);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -198,14 +195,12 @@ export class HcSeriesComponent implements OnInit, OnDestroy, OnChanges, SeriesOp
       this.changesSub.unsubscribe();
     }
     if (this.rawSeries) {
-      if (typeof (this.rawSeries.remove) === 'function') {
+      if (typeof (this.rawSeries.remove) === 'function' && this.chartService.getChartInstance() && this.rawSeries.chart) {
         this.rawSeries.remove(this.chartService.autoRedraw);
-      } else {
+      } else if (this.chartService.getChartInstance()) {
         this.chartService.removeSeries(this.index);
       }
       this.rawSeries = null;
     }
-
-    // this.chartService.removeSeries(this.index);
   }
 }

@@ -25,7 +25,7 @@ import {
   ChartAddSeriesEventObject,
   ChartClickEventObject,
   ChartEventsOptions,
-  ChartOptions,
+  ChartOptions, ChartPanningOptions,
   ChartParallelAxesOptions,
   ChartResetZoomButtonOptions,
   ChartScrollablePlotAreaOptions,
@@ -111,7 +111,7 @@ export class HcChartComponent implements OnInit, ChartOptions, OnChanges, OnDest
   @Input()
   panKey?: OptionsPanKeyValue;
   @Input()
-  panning?: boolean;
+  panning?: ChartPanningOptions;
   @Input()
   parallelAxes?: ChartParallelAxesOptions;
   @Input()

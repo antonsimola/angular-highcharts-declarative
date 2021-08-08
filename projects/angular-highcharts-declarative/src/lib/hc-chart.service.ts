@@ -12,6 +12,10 @@ export class HcChartService {
   constructor(private zone: NgZone) {
   }
 
+  getChartInstance() {
+    return this.chartSubject.getValue();
+  }
+
   redraw() {
     this.chart$.subscribe(c => {
       this.zone.runOutsideAngular(() => c.redraw());
@@ -35,7 +39,6 @@ export class HcChartService {
   }
 
   update(options: Partial<Options>) {
-    // this.wrapOutsideZone(c => c.update(options));
     this.chart$.subscribe(chart => {
       this.zone.runOutsideAngular(() => {
         chart.update(options, this.autoRedraw);

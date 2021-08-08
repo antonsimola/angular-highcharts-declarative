@@ -11,20 +11,19 @@ import {
 } from '@angular/core';
 import { HcChartService } from '../hc-chart.service';
 import {
+  AxisAccessibilityOptionsObject, AxisCrosshairOptions,
   AxisPointBreakEventObject,
   AxisSetExtremesEventObject,
   AxisTickPositionerCallbackFunction,
   AxisTypeValue,
-  ColorString,
-  DashStyleValue, GradientColorObject,
+  ColorString, CurrentDateIndicatorOptions,
+  DashStyleValue, Dictionary, GradientColorObject,
   OptionsMinorTickPositionValue,
   OptionsTickmarkPlacementValue,
   OptionsTickPositionValue, PatternObject,
-  XAxisAccessibilityOptions,
+
   XAxisBreaksOptions,
-  XAxisCrosshairOptions,
-  XAxisCurrentDateIndicatorOptions,
-  XAxisDateTimeLabelFormatsOptions, XAxisEventsOptions,
+  XAxisEventsOptions,
   XAxisGridOptions,
   XAxisLabelsOptions,
   XAxisOptions,
@@ -45,7 +44,7 @@ import { registerEvents } from '../helpers';
 })
 export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOptions {
   @Input()
-  accessibility?: (object|XAxisAccessibilityOptions);
+  accessibility?: (object|AxisAccessibilityOptionsObject);
   @Input()
   alignTicks?: boolean;
   @Input()
@@ -61,11 +60,11 @@ export class HcXAxisComponent implements OnInit, OnDestroy, OnChanges, XAxisOpti
   @Input()
   className?: string;
   @Input()
-  crosshair?: (boolean|XAxisCrosshairOptions);
+  crosshair?: (boolean|AxisCrosshairOptions);
   @Input()
-  currentDateIndicator?: (boolean|XAxisCurrentDateIndicatorOptions);
+  currentDateIndicator?: (boolean|CurrentDateIndicatorOptions);
   @Input()
-  dateTimeLabelFormats?: XAxisDateTimeLabelFormatsOptions;
+  dateTimeLabelFormats?: Dictionary<any>;
   @Input()
   endOnTick?: boolean;
   @Input()

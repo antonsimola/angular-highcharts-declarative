@@ -6,9 +6,9 @@
   "description": "Angular >8.0 Highcharts wrapper with declarative configuration + reactive inputs",
   "repository": "https://github.com/antonsimola/angular-highcharts-declarative",
   "peerDependencies": {
-    "@angular/common": ">9.0.0",
-    "@angular/core": ">9.0.0",
-    "highcharts": "^7.1.3",
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "highcharts": "^9.0.0",
     "rxjs": "^6.4.0"
   },
   "dependencies": {

@@ -9,8 +9,10 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import {HcChartService} from '../hc-chart.service';
+import { HcChartService } from '../hc-chart.service';
 import {
+  AxisAccessibilityOptionsObject,
+  AxisCrosshairOptions, AxisDateTimeLabelFormatsOptions,
   AxisPointBreakEventObject,
   AxisSetExtremesEventObject,
   AxisTickPositionerCallbackFunction,
@@ -21,10 +23,9 @@ import {
   OptionsMinorTickPositionValue,
   OptionsTickmarkPlacementValue,
   OptionsTickPositionValue,
-  YAxisAccessibilityOptions,
   YAxisBreaksOptions,
-  YAxisCrosshairOptions,
-  YAxisDateTimeLabelFormatsOptions,
+
+
   YAxisEventsOptions,
   YAxisGridOptions,
   YAxisLabelsOptions,
@@ -36,9 +37,9 @@ import {
   YAxisStackLabelsOptions,
   YAxisTitleOptions
 } from 'highcharts';
-import {BehaviorSubject} from 'rxjs';
-import {first} from 'rxjs/operators';
-import {registerEvents} from '../helpers';
+import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { registerEvents } from '../helpers';
 
 @Component({
   selector: 'hc-y-axis',
@@ -49,7 +50,7 @@ import {registerEvents} from '../helpers';
 export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOptions {
   // TODO Abstract axis
   @Input()
-  accessibility?: object | YAxisAccessibilityOptions;
+  accessibility?: object | AxisAccessibilityOptionsObject;
   @Input()
   alignTicks?: boolean;
   @Input()
@@ -67,9 +68,9 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   @Input()
   className?: string;
   @Input()
-  crosshair?: boolean | YAxisCrosshairOptions;
+  crosshair?: boolean | AxisCrosshairOptions;
   @Input()
-  dateTimeLabelFormats?: YAxisDateTimeLabelFormatsOptions;
+  dateTimeLabelFormats?: AxisDateTimeLabelFormatsOptions;
   @Input()
   endOnTick?: boolean;
   @Input()
@@ -243,7 +244,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
       return;
     }
     this.index = this.index || index;
-    this.update({...this.getState(), ...{events: registerEvents(this, this.zone, 'axis')}});
+    this.update({ ...this.getState(), ...{ events: registerEvents(this, this.zone, 'axis') } });
     this.initializedSub.next(true);
     this.initializedSub.complete();
   }
@@ -264,7 +265,7 @@ export class HcYAxisComponent implements OnInit, OnDestroy, OnChanges, YAxisOpti
   }
 
   private getState() {
-    const state = {...this};
+    const state = { ...this };
     delete state.chartService;
     delete state.initialized$;
     delete state.initializedSub;

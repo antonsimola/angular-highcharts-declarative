@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   ColorString,
   CSSObject,
@@ -9,16 +9,15 @@ import {
   PatternObject,
   Point,
   ShadowOptionsObject,
-  TooltipDateTimeLabelFormatsOptions,
   TooltipFormatterCallbackFunction,
   TooltipOptions,
   TooltipPositionerCallbackFunction,
   TooltipShapeValue
 } from 'highcharts';
-import {changesToFlat} from '../helpers';
-import {HcChartService} from '../hc-chart.service';
-import {BehaviorSubject} from 'rxjs';
-import {first} from 'rxjs/operators';
+import { changesToFlat } from '../helpers';
+import { HcChartService } from '../hc-chart.service';
+import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'hc-tooltip',
@@ -42,7 +41,7 @@ export class HcTooltipComponent implements OnInit, OnChanges, TooltipOptions {
   @Input()
   className?: string;
   @Input()
-  dateTimeLabelFormats?: TooltipDateTimeLabelFormatsOptions | Dictionary<string>;
+  dateTimeLabelFormats?: Dictionary<string>;
   @Input()
   enabled?: boolean;
   @Input()
@@ -100,9 +99,11 @@ export class HcTooltipComponent implements OnInit, OnChanges, TooltipOptions {
   private initializedSub = new BehaviorSubject<boolean>(false);
   initialized$ = this.initializedSub.pipe(first(v => v));
 
-  constructor(private chartService: HcChartService) {}
+  constructor(private chartService: HcChartService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   setSeries(index: number) {
     this.series = index;
@@ -114,7 +115,7 @@ export class HcTooltipComponent implements OnInit, OnChanges, TooltipOptions {
   }
 
   update(props: Partial<TooltipOptions>) {
-    this.initialized$.subscribe(v => {
+    this.initialized$.subscribe(() => {
       if (this.series !== null) {
         this.chartService.updateSeries(this.series, { tooltip: props } as any);
       } else {
