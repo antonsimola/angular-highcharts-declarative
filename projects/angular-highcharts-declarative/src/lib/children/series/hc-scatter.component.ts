@@ -11,7 +11,7 @@ import {
   DataSortingOptionsObject,
   Dictionary,
   GradientColorObject,
-  OptionsBoostBlendingValue,
+  OptionsBoostBlendingValue, OptionsCompareValue,
   OptionsFindNearestPointByValue,
   OptionsGapUnitValue, OptionsPointIntervalUnitValue, OptionsStackingValue, OptionsStepValue,
   PatternObject,
@@ -211,7 +211,7 @@ export class HcScatterComponent extends HcSeriesComponent implements OnInit, Ser
    * to every point object.
    */
   @Input()
-  compare?: string;
+  compare?: OptionsCompareValue;
   /**
    * (Highstock) When compare is `percent`, this option dictates whether to
    * use 0 or 100 as the base of comparison.

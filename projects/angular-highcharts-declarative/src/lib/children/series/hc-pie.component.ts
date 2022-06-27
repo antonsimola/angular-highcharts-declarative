@@ -7,7 +7,7 @@ import {
   CursorValue,
   DataGroupingOptionsObject,
   Dictionary,
-  GradientColorObject,
+  GradientColorObject, OptionsCompareValue,
   OptionsGapUnitValue,
   PatternObject,
   PlotPieAnimationOptions, PlotSeriesOptions, PlotSeriesPointOptions, PointOptionsObject,
@@ -177,7 +177,7 @@ export class HcPieComponent extends HcSeriesComponent implements OnInit, SeriesP
    * to every point object.
    */
   @Input()
-  compare?: string;
+  compare?: OptionsCompareValue;
   /**
    * (Highstock) When compare is `percent`, this option dictates whether to
    * use 0 or 100 as the base of comparison.

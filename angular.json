@@ -28,18 +28,6 @@
             "tsConfig": "projects/angular-highcharts-declarative/tsconfig.spec.json",
             "karmaConfig": "projects/angular-highcharts-declarative/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/angular-highcharts-declarative/tsconfig.lib.json",
-              "projects/angular-highcharts-declarative/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -135,19 +123,6 @@
               "projects/angular-highcharts-declarative-showcase/src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/angular-highcharts-declarative-showcase/tsconfig.app.json",
-              "projects/angular-highcharts-declarative-showcase/tsconfig.spec.json",
-              "projects/angular-highcharts-declarative-showcase/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {

@@ -10,6 +10,7 @@ import {
   DataSortingOptionsObject,
   Dictionary,
   GradientColorObject,
+  OptionsCompareValue,
   OptionsFindNearestPointByValue,
   OptionsGapUnitValue, OptionsPointIntervalUnitValue, OptionsStackingValue,
   PatternObject, PlotSeriesOptions, PlotSeriesPointOptions,
@@ -171,7 +172,7 @@ export class HcSplineComponent extends HcSeriesComponent implements OnInit, Seri
    * to every point object.
    */
   @Input()
-  compare?: string;
+  compare?: OptionsCompareValue;
   /**
    * (Highstock) When compare is `percent`, this option dictates whether to
    * use 0 or 100 as the base of comparison.

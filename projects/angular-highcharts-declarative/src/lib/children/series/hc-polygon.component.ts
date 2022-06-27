@@ -11,19 +11,32 @@ import {
   DataSortingOptionsObject,
   Dictionary,
   GradientColorObject,
+  OptionsCompareValue,
   OptionsFindNearestPointByValue,
-  OptionsGapUnitValue, OptionsPointIntervalUnitValue, OptionsStackingValue, OptionsStepValue,
+  OptionsGapUnitValue,
+  OptionsPointIntervalUnitValue,
+  OptionsStackingValue,
+  OptionsStepValue,
   PatternObject,
   PlotPolygonAnimationOptions,
   PlotPolygonDataLabelsOptions,
-  PlotPolygonDataSortingOptions, PlotSeriesOptions, PlotSeriesPointOptions, PointMarkerOptionsObject, PointOptionsObject,
+  PlotPolygonDataSortingOptions,
+  PlotSeriesOptions,
+  PlotSeriesPointOptions,
+  PointMarkerOptionsObject,
+  PointOptionsObject,
   SeriesAccessibilityOptionsObject,
   SeriesConnectorsOptionsObject,
   SeriesDragDropOptionsObject,
   SeriesEventsOptionsObject,
   SeriesLabelOptionsObject,
-  SeriesLastPriceOptionsObject, SeriesLastVisiblePriceOptionsObject, SeriesLinecapValue,
-  SeriesPolygonOptions, SeriesStatesOptionsObject, SeriesTooltipOptionsObject, SeriesZonesOptionsObject
+  SeriesLastPriceOptionsObject,
+  SeriesLastVisiblePriceOptionsObject,
+  SeriesLinecapValue,
+  SeriesPolygonOptions,
+  SeriesStatesOptionsObject,
+  SeriesTooltipOptionsObject,
+  SeriesZonesOptionsObject
 } from 'highcharts';
 
 @Component({
@@ -173,7 +186,7 @@ export class HcPolygonComponent extends HcSeriesComponent implements OnInit, Ser
    * to every point object.
    */
   @Input()
-  compare?: string;
+  compare?: OptionsCompareValue;
   /**
    * (Highstock) When compare is `percent`, this option dictates whether to
    * use 0 or 100 as the base of comparison.

@@ -11,7 +11,7 @@ import {
   DataGroupingOptionsObject,
   DataSortingOptionsObject,
   Dictionary,
-  GradientColorObject,
+  GradientColorObject, OptionsCompareValue,
   OptionsFindNearestPointByValue,
   OptionsGapUnitValue,
   OptionsPointIntervalUnitValue,
@@ -183,7 +183,7 @@ export class HcAreasplineComponent extends HcSeriesComponent implements OnInit, 
    * to every point object.
    */
   @Input()
-  compare?: string;
+  compare?: OptionsCompareValue;
   /**
    * (Highstock) When compare is `percent`, this option dictates whether to
    * use 0 or 100 as the base of comparison.
