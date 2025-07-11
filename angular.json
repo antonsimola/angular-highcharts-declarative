@@ -138,6 +138,6 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-highcharts-declarative"
+    }
+  }
 }
