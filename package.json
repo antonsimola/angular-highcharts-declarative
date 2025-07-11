@@ -41,7 +41,7 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.17",
+    "@angular-devkit/build-angular": "^20.1.0",
     "@angular-devkit/core": "^17.3.17",
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.12",
@@ -56,7 +56,7 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^17.3.0",
+    "ng-packagr": "^20.1.0",
     "npx": "^10.2.2",
     "prettier": "^1.18.2",
     "ts-node": "~7.0.0",
