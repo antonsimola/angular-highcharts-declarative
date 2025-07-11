@@ -14,21 +14,13 @@
           "options": {
             "tsConfig": "projects/angular-highcharts-declarative/tsconfig.lib.json",
             "project": "projects/angular-highcharts-declarative/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/angular-highcharts-declarative/tsconfig.lib.prod.json"
             }
           }
-},
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-highcharts-declarative/src/test.ts",
-            "tsConfig": "projects/angular-highcharts-declarative/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-highcharts-declarative/karma.conf.js"
-          }
-        }
+}
       }
     },
     "angular-highcharts-declarative-showcase": {
@@ -106,35 +98,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "angular-highcharts-declarative-showcase:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-highcharts-declarative-showcase/src/test.ts",
-            "polyfills": "projects/angular-highcharts-declarative-showcase/src/polyfills.ts",
-            "tsConfig": "projects/angular-highcharts-declarative-showcase/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-highcharts-declarative-showcase/karma.conf.js",
-            "assets": [
-              "projects/angular-highcharts-declarative-showcase/src/favicon.ico",
-              "projects/angular-highcharts-declarative-showcase/src/assets"
-            ],
-            "styles": [
-              "projects/angular-highcharts-declarative-showcase/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/angular-highcharts-declarative-showcase/e2e/protractor.conf.js",
-            "devServerTarget": "angular-highcharts-declarative-showcase:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-highcharts-declarative-showcase:serve:production"
-            }
           }
         }
       }
