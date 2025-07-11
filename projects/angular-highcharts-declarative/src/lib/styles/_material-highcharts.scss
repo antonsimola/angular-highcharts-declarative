@@ -76,7 +76,7 @@
   $scrollbar-track-border: $neutral-color-5 !default;
 
   //Import the default styles
-  @import '~highcharts/css/highcharts';
+  @import 'highcharts/css/highcharts';
 
   .highcharts-legend-item > text {
     font-weight: normal;
