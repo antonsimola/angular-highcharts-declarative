@@ -6,7 +6,7 @@ import { ChartClickEventObject } from 'highcharts';
   template: `
     <mat-card class="mat-elevation-z8" style="margin: 64px">
       <hc-chart [type]="chartType" (clickChart)="chartClicked($event)">
-        <hc-title [text]="chartType"></hc-title>
+        <hc-title>{{chartType}}</hc-title>
         <hc-series [name]="chartType" [data]="data"> </hc-series>
       </hc-chart>
     </mat-card>

@@ -28,6 +28,8 @@ export abstract class AbstractTitleComponent implements OnInit, OnChanges, After
 
   @ViewChild('text') childContent: ElementRef;
 
+  prevInnerHtml :any= null;
+
   constructor(private chartService: HcChartService) {}
 
   ngOnInit() {}
@@ -37,8 +39,9 @@ export abstract class AbstractTitleComponent implements OnInit, OnChanges, After
   }
 
   ngAfterContentChecked() {
-    if (this.childContent && this.childContent.nativeElement && this.childContent.nativeElement.innerHTML) {
+    if (this.childContent && this.childContent.nativeElement && this.childContent.nativeElement.innerHTML && this.childContent.nativeElement.innerHTML !== this.prevInnerHtml) {
       this.update({ text: this.childContent.nativeElement.innerHTML });
+      this.prevInnerHtml = this.childContent.nativeElement.innerHTML;
     }
   }
 
